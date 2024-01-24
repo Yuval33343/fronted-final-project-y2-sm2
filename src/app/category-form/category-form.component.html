@@ -1,0 +1,30 @@
+<form #registrationForm="ngForm" (ngSubmit)="onSubmitRegistration()"></form>   
+ <div>
+    <mat-form-field>
+    <mat-label>category Name:</mat-label>
+    <input matInput [(ngModel)]="currentcategory.categoryName" name="categoryName" required>
+    </mat-form-field>
+    </div>
+    <div>
+     <mat-form-field>
+   <mat-label>words:</mat-label>
+  <input matInput [(ngModel)]="currentcategory.wordPairs" name="wordPairs" required>
+  </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+  <mat-label>Last Modified</mat-label>
+ <input matInput [(ngModel)]="currentcategory.lastModifiedDate" name="lastModified" required>
+ </mat-form-field>
+ </div>
+ <div>
+    <div>
+        <button
+        type="submit"
+        mat-raised-button
+        color="primary"
+        [disabled]="registrationForm.invalid || registrationForm.pristine">
+        Save
+        </button>
+       </div>
+ </div>
