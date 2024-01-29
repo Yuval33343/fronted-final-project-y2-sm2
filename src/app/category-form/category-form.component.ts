@@ -32,7 +32,7 @@ export class CategoryFormComponent implements OnInit {
       const category = this.categoryService.get(id);
       if (category !== undefined) {
         this.currentcategory = category;
-        
+        console.log("")
         
         
       }
