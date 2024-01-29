@@ -8,6 +8,13 @@ td {
 
 h1 {
   text-align: center;
+  font-family: 'Your Preferred Font', sans-serif;
+  color: #8e44ad;; 
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  
 }
 
 .categoryButton {
@@ -15,4 +22,9 @@ h1 {
     justify-content: center;
     margin-top: 20px; 
   }
+
+  .mat-header-row .mat-header-cell {
+    color: #8e44ad;
+  }
+  
   

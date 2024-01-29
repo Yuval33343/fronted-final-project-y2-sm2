@@ -1,30 +1,54 @@
-<form #registrationForm="ngForm" (ngSubmit)="onSubmitRegistration()"></form>   
- <div>
+<form #registrationForm="ngForm" (ngSubmit)="onSubmitRegistration()">
+  <div>
     <mat-form-field>
-    <mat-label>category Name:</mat-label>
-    <input matInput [(ngModel)]="currentcategory.categoryName" name="categoryName" required>
+      <mat-label>category Name:</mat-label>
+      <input matInput [(ngModel)]="currentcategory.categoryName"  name="categoryName" required>
     </mat-form-field>
-    </div>
-    <div>
-     <mat-form-field>
-   <mat-label>words:</mat-label>
-  <input matInput [(ngModel)]="currentcategory.wordPairs" name="wordPairs" required>
-  </mat-form-field>
   </div>
   <div>
     <mat-form-field>
-  <mat-label>Last Modified</mat-label>
- <input matInput [(ngModel)]="currentcategory.lastModifiedDate" name="lastModified" required>
- </mat-form-field>
- </div>
- <div>
+      <mat-label> source Language</mat-label>
+      <input matInput [(ngModel)]="currentcategory.sourceLanguage" name="English" readonly>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <mat-label>target Language</mat-label>
+      <input matInput [(ngModel)]="currentcategory.targetLanguage" name="Hebrew" readonly>
+    </mat-form-field>
+  </div>
+  <div>
+    <h3>add new word</h3>
+    <button mat-fab type="button" (click)="addNewWord()" color="primary" >
+      <mat-icon style="color: white;">add</mat-icon>
+    </button>
+  </div>
+  
+
+  <div *ngFor="let word of currentcategory.words; index as i" >
+    <mat-form-field>
+      <mat-label>Origin:</mat-label>
+      <input matInput [(ngModel)]="word.origin" name="sourceLanguage{{i}}" required >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>target</mat-label>
+      <input matInput [(ngModel)]="word.target" name="targetLanguage{i}" required >
+    </mat-form-field>
+
+
+    <button type="button" mat-icon-button (click)="deleteWord(i)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+
     <div>
-        <button
+      <button
         type="submit"
         mat-raised-button
         color="primary"
-        [disabled]="registrationForm.invalid || registrationForm.pristine">
+        [disabled]="registrationForm.invalid || registrationForm.pristine || currentcategory.words.length == 0 " >
         Save
-        </button>
-       </div>
- </div>
+      </button>
+      
+    </div>
+</form>

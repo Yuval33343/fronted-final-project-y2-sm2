@@ -1,14 +1,12 @@
 import { Language } from './language-enum';
+import { TranslatedWord } from './translatword';
 
-export class TranslatedWord {
- 
-}
+
 
 export class Category {
-  [x: string]: any;
-  wordPairs: Map<string, string> = new Map<string, string>();
-  public sourceLanguage: Language = Language.HEBREW;
-  public targetLanguage: Language = Language.ENGLISH;
+
+  public sourceLanguage: Language = Language.ENGLISH;
+  public targetLanguage: Language = Language.HEBREW;
   public lastModifiedDate: Date;
   public id: number;
   public categoryName: string;
@@ -21,7 +19,4 @@ export class Category {
     this.id = id;
   }
 
-  addPair(key: string, value: string): void {
-    this.wordPairs.set(key, value);
-  }
 }

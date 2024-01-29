@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
@@ -9,35 +9,32 @@ import { Category } from '../shared/model/category';
 import { CategoryService } from '../services/category.service';
 import { RouterModule,Router } from '@angular/router';
 import { DeleteCategoryDialogComponent } from '../delete-category-dialog/delete-category-dialog.component';
-
+import { DatePipe } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-category-table',
   standalone: true,
-  imports: [MatToolbarModule, MatIconModule, MatMenuModule, MatButtonModule,MatTableModule,CommonModule,RouterModule],
+  imports: [MatToolbarModule, MatIconModule, MatMenuModule, MatButtonModule,MatTableModule,CommonModule,RouterModule,DatePipe],
   templateUrl: './category-table.component.html',
   styleUrl: './category-table.component.css'
 })
 
 export class CategoryTableComponent implements OnInit {
-  dialog: any;
-category: any;
-deleteCategory(_t47: any) {
-throw new Error('Method not implemented.');
-}
+  
   categories: Category[] = [];
  
 
-  constructor(private categoryService: CategoryService,private router: Router) {}
+  constructor(private categoryService: CategoryService,private router: Router,private dialogService : MatDialog) {}
 
-  displayedcolumns:string[] = ['"words','lastModified','actions'];
-  categorys:Category[]=[]
+ 
 
   ngOnInit(): void {
-    this.categories = this.categoryService.listCategories();
+    this.categories = this.categoryService.list();
   }
-  deletecategory(id:number,categoryName:string){
-    const dialogRef = this.dialog.open(DeleteCategoryDialogComponent,{data: categoryName,});
+  deleteCategory(id: number, categoryName: string): void {
+    const dialogRef = this.dialogService.open(DeleteCategoryDialogComponent,{data: categoryName,});
    
    dialogRef.afterClosed().subscribe((deletionConfirmed: boolean) => {
     if(deletionConfirmed==true){

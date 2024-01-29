@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule, Routes } from '@angular/router';
 import { CategoryFormComponent } from './category-form/category-form.component';
+import { MatSortModule } from '@angular/material/sort';
 
 const routes: Routes = [
   { path: '', component: CategoryTableComponent }, 
@@ -20,10 +21,11 @@ const routes: Routes = [
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent, CategoryTableComponent,MatTableModule, MatButtonModule,MatIconModule,RouterModule,],
+    imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent, CategoryTableComponent,MatTableModule, MatButtonModule,MatIconModule,RouterModule,MatSortModule]
     
 })
 
 export class AppComponent {
   title = 'Little-Linguis';
 }
+export class YourModule {}

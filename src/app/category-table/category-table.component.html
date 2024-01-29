@@ -2,33 +2,30 @@
 
 <br><h1>Categories Table</h1><br>
 
-<table mat-table [dataSource]="dataSource">
-  <!-- Category Name  -->
+<table mat-table [dataSource]="categories">
   <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Category Name </th>
-    <td mat-cell *matCellDef="let category"> {{ category.categoryName }} </td>
+    <th mat-header-cell *matHeaderCellDef style="color: #8e44ad;"> Category Name </th>
+   <td mat-cell *matCellDef="let category"> {{ category.categoryName }} </td>
   </ng-container>
 
-  <!-- Number of Words-->
   <ng-container matColumnDef="words">
-    <th mat-header-cell *matHeaderCellDef> Number of Words </th>
-    <td mat-cell *matCellDef="let category"> {{ category.wordPairs.size }} </td>
+    <th mat-header-cell *matHeaderCellDef style="color: #8e44ad;">Number of Words </th>
+    <td mat-cell *matCellDef="let category"> {{ category.words.length }} </td>
   </ng-container>
 
-  <!-- Last Modified -->
   <ng-container matColumnDef="lastModified">
-    <th mat-header-cell *matHeaderCellDef> Last Modified </th>
+    <th mat-header-cell *matHeaderCellDef style="color: #8e44ad;"> Last Modified </th>
     <td mat-cell *matCellDef="let category"> {{ category.lastModifiedDate | date:'short' }} </td>
   </ng-container>
 
-  <!-- Edit and Delete -->
+ 
   <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef> Actions </th>
+    <th mat-header-cell *matHeaderCellDef style="color: #8e44ad;"> Actions </th>
     <td mat-cell *matCellDef="let category">
-     <button mat-icon-button color="primary" [routerLink]="['/category/edit', category.id]">
+     <button mat-icon-button color="primary" [routerLink]="['/categoryform', category.id]">
   <mat-icon>edit</mat-icon>
 </button>
-<button mat-icon-button color="warn" (click)="deleteCategory(category.id)">
+<button mat-icon-button color="warn" (click)="deleteCategory(category.id,category.categoryName)">
   <mat-icon>delete</mat-icon>
 </button>
     </td>
