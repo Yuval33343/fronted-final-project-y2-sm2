@@ -1,10 +1,10 @@
 
 
-<br><h1>Categories - Table</h1><br>
+<br><h2>Categories - Table</h2><br>
 
 <table mat-table [dataSource]="categories">
   <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Category Name </th>
+    <th mat-header-cell *matHeaderCellDef (click)="sortByCategory()"> Category Name </th>
    <td mat-cell *matCellDef="let category"> {{ category.categoryName }} </td>
   </ng-container>
 

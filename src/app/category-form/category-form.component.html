@@ -17,21 +17,21 @@
       <input matInput [(ngModel)]="currentcategory.targetLanguage" name="Hebrew" readonly>
     </mat-form-field>
   </div>
+  <h2><span>Add new words here!</span></h2>
   <div>
-    <h3>Add a new word</h3>
     <button mat-fab type="button" (click)="addNewWord()" color="primary" >
       <mat-icon style="color: white;">add</mat-icon>
     </button>
-  </div>
+  </div><br>
   
 
   <div *ngFor="let word of currentcategory.words; index as i" >
     <mat-form-field>
-      <mat-label>Origin:</mat-label>
+      <mat-label>Origin</mat-label>
       <input matInput [(ngModel)]="word.origin" name="sourceLanguage{{i}}" required >
     </mat-form-field>
     <mat-form-field>
-      <mat-label>target</mat-label>
+      <mat-label>Target</mat-label>
       <input matInput [(ngModel)]="word.target" name="targetLanguage{{i}}" required >
     </mat-form-field>
 

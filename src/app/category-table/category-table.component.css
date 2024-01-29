@@ -7,7 +7,7 @@ td {
  
 }
 
-h1 {
+h2 {
   text-align: center;
   font-family: 'Your Preferred Font', sans-serif;
   background-color: #a565f9; 
@@ -15,7 +15,7 @@ h1 {
   font-weight: bold;
   text-align: center;
   letter-spacing: 1px;
-  padding: 4px;
+  padding: 8px;
   margin-bottom: 20px;
   
 }

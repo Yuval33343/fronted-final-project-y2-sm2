@@ -7,11 +7,9 @@
 .app-title {
     font-family: 'Your Preferred Font', sans-serif;
     font-weight: bold;
-    font-size: larger;
+    font-size: 30px;
     color:rgb(255, 255, 255); 
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin: 0;
+    letter-spacing: 1px;
 }
 
 .highlight {
