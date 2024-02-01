@@ -1,20 +1,19 @@
+<br><h2><span>Categories - Table</span></h2><br>
 
-
-<br><h2>Categories - Table</h2><br>
-
-<table mat-table [dataSource]="categories">
+<table mat-table [dataSource]="categories" matSort (matSortChange)="sortData($event)">
+  >
   <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef (click)="sortByCategory()"> Category Name </th>
-   <td mat-cell *matCellDef="let category"> {{ category.categoryName }} </td>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="Cname"> Category Name </th>
+    <td mat-cell *matCellDef="let category"> {{ category.categoryName }} </td>
   </ng-container>
 
   <ng-container matColumnDef="words">
-    <th mat-header-cell *matHeaderCellDef>Number of Words </th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="numWords">Number of Words </th>
     <td mat-cell *matCellDef="let category"> {{ category.words.length }} </td>
   </ng-container>
 
   <ng-container matColumnDef="lastModified">
-    <th mat-header-cell *matHeaderCellDef> Last Modified </th>
+    <th mat-header-cell *matHeaderCellDef  mat-sort-header="Cdate"> Last Modified </th>
     <td mat-cell *matCellDef="let category"> {{ category.lastModifiedDate | date:'short' }} </td>
   </ng-container>
 
@@ -31,8 +30,8 @@
     </td>
   </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="['name', 'words', 'lastModified', 'actions']"></tr>
-  <tr mat-row *matRowDef="let row; columns: ['name', 'words', 'lastModified', 'actions']"></tr>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table><br><br>
 
 <div class="categoryButton">

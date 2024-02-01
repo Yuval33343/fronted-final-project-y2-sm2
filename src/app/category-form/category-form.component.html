@@ -1,8 +1,10 @@
 <form #registrationForm="ngForm" (ngSubmit)="onSubmitRegistration()">
+  <br>
   <div>
     <mat-form-field>
       <mat-label>Category Name</mat-label>
-      <input matInput [(ngModel)]="currentcategory.categoryName"  name="categoryName" required>
+      <input matInput [(ngModel)]="currentcategory.categoryName"  name="categoryName" required pattern="[A-Za-zא-ת]+">
+      <mat-error *ngIf="!isCategoryValid()">Please enter your Category Name.</mat-error>
     </mat-form-field>
   </div>
   <div>
@@ -17,29 +19,27 @@
       <input matInput [(ngModel)]="currentcategory.targetLanguage" name="Hebrew" readonly>
     </mat-form-field>
   </div>
-  <h2><span>Add new words here!</span></h2>
+
   <div>
-    <button mat-fab type="button" (click)="addNewWord()" color="primary" >
-      <mat-icon style="color: white;">add</mat-icon>
-    </button>
+    <button mat-raised-button type="button" (click)="addNewWord()" color="primary"><span>+ &nbsp; &nbsp; Add new words here!</span></button>
   </div><br>
   
 
-  <div *ngFor="let word of currentcategory.words; index as i" >
+  <div id="wordsDiv" *ngFor="let word of currentcategory.words; index as i" >
     <mat-form-field>
       <mat-label>Origin</mat-label>
-      <input matInput [(ngModel)]="word.origin" name="sourceLanguage{{i}}" required >
-    </mat-form-field>
+      <input matInput [(ngModel)]="word.origin" name="sourceLanguage{{i}}" required pattern="[A-Za-z]+">
+      <mat-error *ngIf="!isOriginValid(i)">Origin should contain only English letters.</mat-error>
+    </mat-form-field> &nbsp;&nbsp;
     <mat-form-field>
       <mat-label>Target</mat-label>
-      <input matInput [(ngModel)]="word.target" name="targetLanguage{{i}}" required >
+      <input matInput [(ngModel)]="word.target" name="targetLanguage{{i}}" required pattern="[א-ת]+" >
+      <mat-error *ngIf="!isTargetValid(i)">Target should contain only Hebrew letters.</mat-error>
     </mat-form-field>
-
-
     <button type="button" mat-icon-button (click)="deleteWord(i)">
-      <mat-icon>delete</mat-icon>
+        <mat-icon>delete</mat-icon>
     </button>
-  </div><br>
+</div><br>
 
     <div>
       <button

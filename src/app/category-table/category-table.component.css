@@ -1,23 +1,30 @@
 th {
-  text-align: center;
+  color: white;
+  font-size: 16px;
+  letter-spacing: 1px;
+  text-decoration: underline;
 }
+
+
 
 td {
-  text-align: center;
- 
+  color: white;
 }
 
-h2 {
+
+span {
   text-align: center;
   font-family: 'Your Preferred Font', sans-serif;
-  background-color: #a565f9; 
+  background-color: #f7a33d;
   color: rgb(255, 255, 255);
   font-weight: bold;
   text-align: center;
   letter-spacing: 1px;
   padding: 8px;
   margin-bottom: 20px;
-  
+  margin-left: 640px;
+  padding: 15px;
+  border-radius: 15px
 }
 
 .categoryButton {
@@ -26,5 +33,6 @@ h2 {
     margin-top: 20px; 
   }
 
-
-  
+table{
+  background-color:#f7a33d;
+}

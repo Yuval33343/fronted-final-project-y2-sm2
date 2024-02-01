@@ -3,8 +3,8 @@ body{
 }
 
 span{
-  background-color: #a565f9;
-  padding: 8px;
+  font-size:20px;
+  padding: 10px;
 }
 
 
@@ -19,6 +19,10 @@ h2 {
 
 div{
    display: flex; 
-  justify-content: center; /* Horizontally center */
+   justify-content: center; 
 }
 
+
+#wordsDiv{
+  margin-left: 40px;
+}

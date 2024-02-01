@@ -42,7 +42,7 @@ export class CategoryFormComponent implements OnInit {
   
 
   onSubmitRegistration(): void {
-    console.log('Form submitted!');
+    alert('The category: has been added to the site!');
 
     if (this.idString) {
       this.categoryService.update(this.currentcategory);
@@ -64,5 +64,22 @@ export class CategoryFormComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
- 
+  isOriginValid(i: number): boolean {
+    const originValue = this.currentcategory.words[i].origin;
+    return /^[A-Za-z]+$/.test(originValue);
+  }
+
+  isTargetValid(i: number): boolean {
+    const targetValue = this.currentcategory.words[i].target;
+    return /^[א-ת]+$/.test(targetValue);
+  }
+  
+  isCategoryValid(): boolean {
+    // Check if the categoryName field is valid
+    const categoryName = this.currentcategory.categoryName.trim(); 
+    const isValid = /^[A-Za-zא-ת]+$/.test(categoryName); 
+
+    return isValid;
+  }
+
 }
