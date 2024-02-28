@@ -22,7 +22,6 @@ span {
   letter-spacing: 1px;
   padding: 8px;
   margin-bottom: 20px;
-  margin-left: 640px;
   padding: 15px;
   border-radius: 15px
 }
@@ -35,4 +34,12 @@ span {
 
 table{
   background-color:#f7a33d;
+}
+
+
+:host{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px ;
 }

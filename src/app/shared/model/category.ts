@@ -12,6 +12,8 @@ export class Category {
   public categoryName: string;
   public lastUpdateDate: Date = new Date();
   public words: TranslatedWord[] = [];
+  static id: string;
+  static categoryName: string;
 
   constructor(categoryName: string, lastModifiedDate: Date, id: number) {
     this.categoryName = categoryName;

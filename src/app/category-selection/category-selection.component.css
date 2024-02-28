@@ -1,0 +1,17 @@
+span {
+    width: fit-content;  
+    background-color: #f7a33d;
+    color: rgb(255, 255, 255);
+    letter-spacing: 1px;
+    padding: 8px;
+    border-radius: 15px;
+    display: block; 
+}
+
+:host{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px ;
+}
+

@@ -42,7 +42,7 @@ export class CategoryFormComponent implements OnInit {
   
 
   onSubmitRegistration(): void {
-    alert('The category: has been added to the site!');
+    alert("The category has been added to the site!");
 
     if (this.idString) {
       this.categoryService.update(this.currentcategory);
