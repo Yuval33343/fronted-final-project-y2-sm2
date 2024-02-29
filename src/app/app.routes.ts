@@ -11,5 +11,5 @@ export const routes: Routes = [
   { path: 'categoryform/:idString', component: CategoryFormComponent }, 
   { path: 'categorynew', component: CategoryFormComponent },
   { path: 'category-selection', component: CategorySelectionComponent },
-  { path: 'translate', component: TranslateComponent},
+  { path: 'translate/:selectedCategoryId', component: TranslateComponent},
 ]

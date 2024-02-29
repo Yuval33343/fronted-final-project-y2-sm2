@@ -25,6 +25,8 @@ export class CategoryService {
     localStorage.setItem('nextCategoryId', nextId.toString());
   }
 
+  constructor() {} // Add constructor to ensure service is provided correctly
+
   add(category: Category): void {
     category.id = this.nextCategoryId;
     category.lastModifiedDate = new Date();

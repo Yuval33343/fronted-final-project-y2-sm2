@@ -1,8 +1,19 @@
-<h1><span>Translate - ... </span></h1>
-
-
-<div class="check">
-    <button mat-raised-button color="primary" routerLink='/'>Check</button>
-</div>
-  
+<div *ngIf="category">
+    <h1>Translate - {{ category.categoryName }}</h1>
+  <div class="word-list">
+    <div *ngFor="let word of category.words; let i = index" class="word-item">
+      <span>{{ word.origin }}</span>
+      <input type="text" [(ngModel)]="word.hebrewTranslation" placeholder="Enter Hebrew translation">
+    </div>
+    </div>
+    <div class="check">
+      <button mat-raised-button color="primary" (click)="checkTranslations()">Check</button>
+    </div>
+    <div class="results" *ngIf="showResults">
+      <span *ngFor="let result of translationResults; let i = index">
+        {{ result ? '✓' : '✗' }}{{ i < translationResults.length - 1 ? ', ' : '' }}
+      </span>
+      <p>{{ resultMessage }}</p>
+   </div>
+  </div>
   
