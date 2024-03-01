@@ -3,43 +3,40 @@ th {
   font-size: 16px;
   letter-spacing: 1px;
   text-decoration: underline;
+  text-align: center; 
+  vertical-align: middle; 
 }
 
-
+#tdAct {
+  color: white;
+  text-align: center;
+  vertical-align: middle; /
+}
 
 td {
   color: white;
 }
 
-
 span {
+  color: #490069;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   text-align: center;
-  font-family: 'Your Preferred Font', sans-serif;
-  background-color: #f7a33d;
-  color: rgb(255, 255, 255);
-  font-weight: bold;
-  text-align: center;
-  letter-spacing: 1px;
-  padding: 8px;
-  margin-bottom: 20px;
-  padding: 15px;
-  border-radius: 15px
+  font-size: 45px;
 }
 
 .categoryButton {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px; 
-  }
-
-table{
-  background-color:#f7a33d;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; 
 }
 
+table {
+  background-color: #0ca2e8;
+}
 
-:host{
+:host {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10px ;
+  margin-top: 10px;
 }

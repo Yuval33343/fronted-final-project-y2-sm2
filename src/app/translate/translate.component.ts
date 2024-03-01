@@ -5,13 +5,16 @@ import { TranslatedWord } from '../shared/model/translatword';
 import { Category } from '../shared/model/category';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
 @Component({
   selector: 'app-translate',
   standalone: true,
-  imports: [MatButtonModule,FormsModule,CommonModule],
+  imports: [MatButtonModule,FormsModule,CommonModule, MatFormFieldModule,MatInputModule,MatIconModule],
   templateUrl: './translate.component.html',
   styleUrl: './translate.component.css'
 })
@@ -22,6 +25,7 @@ export class TranslateComponent implements OnInit {
   showResults: boolean = false;
   translationResults: boolean[] = [];
   resultMessage: string = '';
+  seeResultMessage: string = '';
   
 
 
@@ -34,12 +38,35 @@ export class TranslateComponent implements OnInit {
       }
    }
   
-  checkTranslations(): void {
+   checkTranslations(): void {
+    this.translationResults = []; 
+    let count = 0;
+  
+    for(let i = 0; i < this.category!.words.length; i++){
+      if(this.category!.words[i].target == this.category!.words[i].hebrewTranslation){
+        count++;
+      }
+      this.translationResults.push(this.category!.words[i].target == this.category!.words[i].hebrewTranslation);
+    }
+  
+    if(count == this.translationResults.length){
+      this.resultMessage = "!כל הכבוד!!! תרגמת נכון את כל המילים";
+    } else {
+      this.resultMessage = "תרגמת- " + count + " מילים נכונות " + " מתוך " + this.category!.words.length +" מילים, " + " אנא נסה שוב ";
+    }
+    
+    this.showResults = true;
+  }
+
+  revealTranslations(): void {
     if (this.category) {
-      this.translationResults = this.translations.map((translation, index) => {
-        return translation.hebrewTranslation === (this.category?.words[index]?.target || '');
+      this.category.words.forEach(word => {
+        word.hebrewTranslation = word.target; 
+        this.seeResultMessage = "...חבל, פעם הבאה נסה לבד";
       });
-      const allCorrect = this.translationResults.every(result => result);
-      this.resultMessage = allCorrect ? 'All translations are correct!' : 'Some translations are incorrect.';
-      this.showResults = true;
-}}}
+    }
+  }
+  
+  
+}
+

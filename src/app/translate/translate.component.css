@@ -6,11 +6,71 @@
   }
   
   span {
-    width: fit-content;  
-    background-color: #bf3df7;
-    color: rgb(255, 255, 255);
-    letter-spacing: 1px;
-    padding: 8px;
-    border-radius: 15px;
-    display: block; 
+    text-align: center;
+    color: #ffffff;
+    text-align: center;
+    background-color:#0ca2e8;
+    font-weight: bold;
+    padding: 10px;
+    letter-spacing: 1mm;
+    
 }
+
+h1{
+  color: #490069;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 40px;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+button{
+  margin-left: 65px;
+  margin-top: 20px;
+}
+
+.word-item {
+  margin-bottom: 10px;
+}
+
+.translation-field {
+  width: 200px; 
+}
+
+.result-icon {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  border-radius: 50%;
+}
+
+.result-icon.correct {
+  background-color: green;
+  color: white;
+}
+
+.result-icon.incorrect {
+  background-color: red;
+  color: white;
+}
+
+#mainDiv{
+  align-items: center;
+}
+
+.results{
+  color: #490069;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  text-align: center;
+  font-size: 18px;
+  margin-top: 40px;
+}
+
+#seeResultButton{
+  margin-left: 20px;
+}
+
