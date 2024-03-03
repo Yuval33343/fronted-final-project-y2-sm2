@@ -1,4 +1,4 @@
-<h1><span>Let's Play!</span></h1>
+<h1><span>Let's Play!</span></h1><br> 
 <h2><span id="s1">Choose Category:</span></h2>
 
 
@@ -9,7 +9,7 @@
     <mat-option *ngFor="let category of categories" [value]="category.id">{{category.categoryName}}</mat-option>
   </mat-select>
   
-</mat-form-field>
+</mat-form-field><br> <br> 
 
 <div class="play">
   <button [disabled]="selected==0" mat-raised-button color="primary" [routerLink]="['/translate',selected]">PLAY</button>

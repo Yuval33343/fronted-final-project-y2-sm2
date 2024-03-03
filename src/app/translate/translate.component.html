@@ -2,7 +2,7 @@
   <h1>Translate - {{ category.categoryName }}</h1>
   <div class="word-list">
     <div *ngFor="let word of category.words; let i = index" class="word-item">
-      <span>{{ word.origin }}</span> =
+      <span>{{ word.origin }}</span> <i id="equalSy">=</i>	
       <mat-form-field class="translation-field">
         <input matInput type="text" [(ngModel)]="word.hebrewTranslation" placeholder="תרגום המילה" required pattern="[א-ת]+">
         <mat-error>יש להזין אותיות בעברית בלבד</mat-error>
@@ -10,15 +10,19 @@
       <span class="result-icon" [ngClass]="{ 'correct': translationResults[i], 'incorrect': !translationResults[i] }" *ngIf="showResults">
         {{ translationResults[i] ? '✓' : '✗' }}
       </span>
-      
+    
     </div>
   </div>
   <div class="check">
-    <button mat-raised-button color="primary" (click)="checkTranslations()">Check</button>
-    <button id="seeResultButton" mat-raised-button color="primary" (click)="revealTranslations()">Translate <mat-icon>visibility</mat-icon></button>
+    <button mat-raised-button color="primary" [disabled]="disableCheckButton()" (click)="checkTranslations()">Check</button>
+    <button id="seeResultButton" mat-raised-button color="primary" (click)="translateButtonClick()" (click)="revealTranslations()">Translate <mat-icon>visibility</mat-icon></button>
   </div>
   <div class="results" *ngIf="showResults">
     <p>{{ resultMessage }}</p>
+    <button id="tryAgainBA" mat-raised-button color="primary" *ngIf="resultMessage !== ''" routerLink="/category-selection">נסה קטגוריה חדשה</button>
   </div>
-  <p class="results">{{ seeResultMessage }}</p> 
+  <div>
+  <p class="results">{{ seeResultMessage }}</p>
+  <button id="tryAgainBB" mat-raised-button color="primary" *ngIf="seeResultMessage !== ''" routerLink="/category-selection">נסה קטגוריה חדשה</button>
+  </div>
 </div>

@@ -9,11 +9,11 @@
     text-align: center;
     color: #ffffff;
     text-align: center;
-    background-color:#0ca2e8;
-    font-weight: bold;
+    background-color:#06a9f5cf;
+    font-weight: 500;
     padding: 10px;
     letter-spacing: 1mm;
-    
+    font-size: 20px;
 }
 
 h1{
@@ -25,12 +25,17 @@ h1{
 }
 
 button{
-  margin-left: 65px;
+  margin-left: 75px;
   margin-top: 20px;
+}
+
+.check{
+  margin-left: 30px;
 }
 
 .word-item {
   margin-bottom: 10px;
+  margin-left: 50px;
 }
 
 .translation-field {
@@ -51,11 +56,13 @@ button{
 .result-icon.correct {
   background-color: green;
   color: white;
+  font-weight: bolder;
 }
 
 .result-icon.incorrect {
   background-color: red;
   color: white;
+  font-weight: bolder;
 }
 
 #mainDiv{
@@ -74,3 +81,16 @@ button{
   margin-left: 20px;
 }
 
+#equalSy{
+  font-size: 30px;
+  padding: 10px;
+  color: #490069;
+}
+
+#tryAgainBA{
+  margin-left: 0px;
+}
+
+#tryAgainBB{
+  margin-left: 140px;
+}

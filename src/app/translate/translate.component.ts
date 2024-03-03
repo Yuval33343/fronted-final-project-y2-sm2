@@ -9,12 +9,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 
+import { RouterLink } from '@angular/router';
+
 
 
 @Component({
   selector: 'app-translate',
   standalone: true,
-  imports: [MatButtonModule,FormsModule,CommonModule, MatFormFieldModule,MatInputModule,MatIconModule],
+  imports: [MatButtonModule,FormsModule,CommonModule, MatFormFieldModule,MatInputModule,MatIconModule,RouterLink],
   templateUrl: './translate.component.html',
   styleUrl: './translate.component.css'
 })
@@ -26,7 +28,8 @@ export class TranslateComponent implements OnInit {
   translationResults: boolean[] = [];
   resultMessage: string = '';
   seeResultMessage: string = '';
-  
+  translateButtonClicked: boolean = false;
+
 
 
   constructor(private categoryService: CategoryService,){}
@@ -67,6 +70,13 @@ export class TranslateComponent implements OnInit {
     }
   }
   
-  
+  disableCheckButton(): boolean {
+    return this.translateButtonClicked;
+  }
+
+  translateButtonClick(): void {
+    this.translateButtonClicked = true;
+  }
+
 }
 

@@ -10,11 +10,20 @@ th {
 #tdAct {
   color: white;
   text-align: center;
-  vertical-align: middle; /
+  vertical-align: middle; 
 }
 
 td {
   color: white;
+  font-size: 15px;
+}
+
+#tdWords{
+  padding-left: 75px;
+}
+
+#tdName{
+  padding-left: 50px;
 }
 
 span {
@@ -31,7 +40,7 @@ span {
 }
 
 table {
-  background-color: #0ca2e8;
+  background-color: #16a1d732 ;
 }
 
 :host {
@@ -40,3 +49,4 @@ table {
   align-items: center;
   margin-top: 10px;
 }
+/* 0ca2e8 */

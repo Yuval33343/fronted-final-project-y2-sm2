@@ -75,7 +75,7 @@ export class CategoryTableComponent implements OnInit {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'Cname':
-          return compare(a.categoryName, b.categoryName, isAsc);
+          return compare(a.categoryName.toLowerCase(), b.categoryName.toLowerCase(), isAsc);
         case 'numWords':
           return compare(a.words.length, b.words.length, isAsc);
         case 'Cdate':
