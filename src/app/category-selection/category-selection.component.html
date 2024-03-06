@@ -3,7 +3,7 @@
 
 
 <div class="div-container">
-  <div *ngFor="let category of categories" class="card-container">
+  <div *ngFor="let category of categories" class="card-container" (click)="startGame(category.id)">
     <mat-card>
       <div class="card-title">
         <mat-card-title>{{category.categoryName}}</mat-card-title>

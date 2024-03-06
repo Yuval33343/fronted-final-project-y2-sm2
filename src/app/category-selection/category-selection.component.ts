@@ -18,9 +18,8 @@ import { MatCardModule } from '@angular/material/card';
 export class CategorySelectionComponent implements OnInit {
   @Input()
   category?: Category
-  selected: number = 0;
   categories: Category[] = [];
-  selectedCategoryId: string = "";
+
 
   constructor(private categoryService: CategoryService, private router: Router) { }
 
@@ -29,12 +28,8 @@ export class CategorySelectionComponent implements OnInit {
   }
 
   startGame(categoryId: number): void {
-    const category = this.categories.find(category => category.id === categoryId);
-    if (category) {
-      this.router.navigate(['/translate', { categoryId: categoryId }]);
-    }
-      
-    }
+    this.router.navigate(['/translate', categoryId]);
+  }  
     
   }
   
