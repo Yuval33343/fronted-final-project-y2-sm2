@@ -6,18 +6,21 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import {  MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-category-selection',
   templateUrl: './category-selection.component.html',
   styleUrls: ['./category-selection.component.css'],
   standalone: true,
-  imports: [MatInputModule, MatButtonModule, RouterLink, MatSelectModule,CommonModule],
+  imports: [MatInputModule, MatButtonModule, RouterLink, MatSelectModule,CommonModule,MatCardModule,],
 })
 export class CategorySelectionComponent implements OnInit {
+  @Input()
+  category?: Category
   selected: number = 0;
   categories: Category[] = [];
-selectedCategoryId: string = "";
+  selectedCategoryId: string = "";
 
   constructor(private categoryService: CategoryService, private router: Router) { }
 

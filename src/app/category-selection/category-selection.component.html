@@ -2,15 +2,15 @@
 <h2><span id="s1">Choose Category:</span></h2>
 
 
-
-<mat-form-field>
-  <mat-label>Select</mat-label>
-  <mat-select [(value)]="selected">
-    <mat-option *ngFor="let category of categories" [value]="category.id">{{category.categoryName}}</mat-option>
-  </mat-select>
-  
-</mat-form-field><br> <br> 
-
-<div class="play">
-  <button [disabled]="selected==0" mat-raised-button color="primary" [routerLink]="['/translate',selected]">PLAY</button>
+<div class="div-container">
+  <div *ngFor="let category of categories" class="card-container">
+    <mat-card>
+      <div class="card-title">
+        <mat-card-title>{{category.categoryName}}</mat-card-title>
+      </div>
+      <div class="card-content">
+        <mat-card-content *ngIf="category?.words?.length">{{category?.words?.length  + " Words"}}</mat-card-content>
+      </div>
+    </mat-card>
+  </div>
 </div>
