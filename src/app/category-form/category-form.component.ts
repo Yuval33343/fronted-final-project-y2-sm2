@@ -49,7 +49,7 @@ export class CategoryFormComponent implements OnInit {
     } else {
       this.categoryService.add(this.currentcategory);
     }
-    this.navigateToMainScreen();
+    this.navigateToCCategoryTable();
   }
 
   addNewWord(): void {
@@ -60,8 +60,8 @@ export class CategoryFormComponent implements OnInit {
     this.currentcategory.words.splice(index, 1);
   }
 
-  navigateToMainScreen(): void {
-    this.router.navigate(['/']);
+  navigateToCCategoryTable(): void {
+    this.router.navigate(['app-category-table']);
   }
 
   isOriginValid(i: number): boolean {
