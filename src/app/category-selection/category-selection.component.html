@@ -1,4 +1,4 @@
-<h1><span>Let's Play!</span></h1><br> 
+<h1><span>Let's Play!</span></h1>
 <h2><span id="s1">Choose Category:</span></h2>
 
 
@@ -9,7 +9,9 @@
         <mat-card-title>{{category.categoryName}}</mat-card-title>
       </div>
       <div class="card-content">
-        <mat-card-content *ngIf="category?.words?.length">{{category?.words?.length  + " Words"}}</mat-card-content>
+        <mat-card-content *ngIf="category?.words?.length">{{category?.words?.length  + " Words"}} 
+          <br><br>  Last Updated: {{ category.lastModifiedDate | date: 'd/M/yy, hh:mm a' }}
+        </mat-card-content>
       </div>
     </mat-card>
   </div>
