@@ -13,12 +13,14 @@ span {
 .div-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr ;
+    
 }
 
 .card-container {
     padding: 30px; 
     text-align: center;
     font-weight: 300;
+    
 }
 
 
@@ -32,4 +34,5 @@ span {
 
 mat-card {
     border-radius: 40px; 
+    cursor: pointer;
 }

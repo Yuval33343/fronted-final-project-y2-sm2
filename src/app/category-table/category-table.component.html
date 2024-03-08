@@ -22,11 +22,11 @@
     <th mat-header-cell *matHeaderCellDef> Actions </th>
     <td id="tdAct" mat-cell *matCellDef="let category">
      <button mat-icon-button color="primary" [routerLink]="['/categoryform', category.id]">
-  <mat-icon>edit</mat-icon>
-</button>
-<button mat-icon-button color="warn" (click)="deleteCategory(category.id,category.categoryName)">
-  <mat-icon>delete</mat-icon>
-</button>
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="deleteCategory(category.id,category.categoryName)">
+        <mat-icon>delete</mat-icon>
+      </button>
     </td>
   </ng-container>
 
@@ -35,5 +35,5 @@
 </table><br>
 
 <div class="categoryButton">
-  <button mat-raised-button color="primary" routerLink='/categorynew'>New Category</button>
+  <button mat-raised-button color="primary" routerLink='/categorynew'>+ New Category</button>
 </div>

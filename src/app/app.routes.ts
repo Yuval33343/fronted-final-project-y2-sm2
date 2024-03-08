@@ -8,11 +8,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 export const routes: Routes = [
-  { path: '', component: CategoryTableComponent }, 
+  { path: '', component: DashboardComponent }, 
   { path: 'categoryform/:idString', component: CategoryFormComponent }, 
   { path: 'categorynew', component: CategoryFormComponent },
   { path: 'category-selection', component: CategorySelectionComponent },
   { path: 'translate/:selectedCategoryId', component: TranslateComponent},
   { path: 'app-footer-help', component: FooterHelpComponent },
-  { path: 'app-dashboard', component: DashboardComponent },
+  { path: 'app-category-table', component: CategoryTableComponent },
 ]
