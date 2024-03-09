@@ -37,6 +37,7 @@ span {
   display: flex;
   justify-content: center;
   margin-top: 20px; 
+  margin-bottom: 30px;
 }
 
 table {
@@ -49,4 +50,7 @@ table {
   align-items: center;
   margin-top: 10px;
 }
-/* 0ca2e8 */
+
+tr:hover {
+  background-color: #66edff4f; 
+}

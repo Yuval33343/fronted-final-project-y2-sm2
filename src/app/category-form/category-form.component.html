@@ -27,17 +27,17 @@
 
   <div id="wordsDiv" *ngFor="let word of currentcategory.words; index as i" >
     <mat-form-field>
-      <mat-label>Origin</mat-label>
-      <input matInput [(ngModel)]="word.origin" name="sourceLanguage{{i}}" required pattern="[A-Za-z]+">
-      <mat-error *ngIf="!isOriginValid(i)">Origin should contain only English letters.</mat-error>
+      <mat-label>Source</mat-label>
+      <input matInput [(ngModel)]="word.origin" name="sourceLanguage{{i}}" required pattern="[A-Za-z\s]+">
+      <mat-error *ngIf="!isOriginValid(i)">Source should contain only English letters.</mat-error>
     </mat-form-field> &nbsp;&nbsp;
     <mat-form-field>
       <mat-label>Target</mat-label>
-      <input matInput [(ngModel)]="word.target" name="targetLanguage{{i}}" required pattern="[א-ת]+" >
+      <input matInput [(ngModel)]="word.target" name="targetLanguage{{i}}" required pattern="[א-ת\s]+" >
       <mat-error *ngIf="!isTargetValid(i)">Target should contain only Hebrew letters.</mat-error>
     </mat-form-field>
     <button type="button" mat-icon-button (click)="deleteWord(i)">
-        <mat-icon>delete</mat-icon>
+      <mat-icon>delete</mat-icon>
     </button>
 </div><br>
 
