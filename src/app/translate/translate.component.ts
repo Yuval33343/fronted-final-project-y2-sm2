@@ -8,7 +8,6 @@ import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-
 import { RouterLink } from '@angular/router';
 
 
@@ -20,6 +19,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './translate.component.html',
   styleUrl: './translate.component.css'
 })
+
 export class TranslateComponent implements OnInit {
   @Input() selectedCategoryId?: string;
   category?: Category;
@@ -33,15 +33,16 @@ export class TranslateComponent implements OnInit {
 
 
   constructor(private categoryService: CategoryService,){}
+
   ngOnInit(): void {
     console.log(this.selectedCategoryId)
 
     if (this.selectedCategoryId ) {
       this.category = this.categoryService.get(parseInt(this.selectedCategoryId));
-      }
-   }
+    }
+  }
   
-   checkTranslations(): void {
+  checkTranslations(): void {
     this.translationResults = []; 
     let count = 0;
   

@@ -31,5 +31,5 @@ export class CategorySelectionComponent implements OnInit {
     this.router.navigate(['/translate', categoryId]);
   }  
     
-  }
+}
   
