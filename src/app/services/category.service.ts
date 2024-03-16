@@ -5,7 +5,11 @@ import { Category } from '../shared/model/category';
   providedIn: 'root',
 })
 export class CategoryService {
+  private selectedCategory?: Category;
   private readonly storageKey = 'categories';
+
+  constructor() {} // Add constructor to ensure service is provided correctly
+
 
   private get categoriesFromLocalStorage(): Map<number, Category> {
     const storedCategories = localStorage.getItem(this.storageKey);
@@ -24,8 +28,6 @@ export class CategoryService {
   private set nextCategoryId(nextId: number) {
     localStorage.setItem('nextCategoryId', nextId.toString());
   }
-
-  constructor() {} // Add constructor to ensure service is provided correctly
 
   add(category: Category): void {
     category.id = this.nextCategoryId;
@@ -59,11 +61,25 @@ export class CategoryService {
     return Array.from(this.categoriesFromLocalStorage.values());
   }
 
+
+
   get(categoryId: number): Category | undefined {
     const category = this.categoriesFromLocalStorage.get(categoryId);
+    console.log('Retrieved category:', category);
     if (!category) {
       throw new Error(`Category with ID ${categoryId} does not exist.`);
     }
     return category;
   }
+
+  
+  setSelectedCategory(category: Category): void {
+    console.log("Setting selected category:", category);
+    this.selectedCategory = category;
+  }
+
+  getSelectedCategory(): Category | undefined {
+    return this.selectedCategory;
+  }
+
 }

@@ -5,6 +5,7 @@ import { CategorySelectionComponent } from './category-selection/category-select
 import { TranslateComponent } from './translate/translate.component';
 import { FooterHelpComponent } from './footer-help/footer-help.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { MatchingGameComponent } from './matching-game/matching-game.component';
 
 
 export const routes: Routes = [
@@ -15,4 +16,6 @@ export const routes: Routes = [
   { path: 'translate/:selectedCategoryId', component: TranslateComponent},
   { path: 'app-footer-help', component: FooterHelpComponent },
   { path: 'app-category-table', component: CategoryTableComponent },
+  { path: 'matching-game', component: MatchingGameComponent },
+
 ]

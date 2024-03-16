@@ -4,7 +4,7 @@
 
 <div class="div-container">
   <div *ngFor="let category of categories" class="card-container">
-    <mat-card (click)="startGame(category.id)">
+    <mat-card (click)="openGameSelectionDialog(category.id)">
       <div class="card-title">
         <mat-card-title>{{category.categoryName}}</mat-card-title>
       </div>
