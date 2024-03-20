@@ -3,7 +3,7 @@ import { CategorySelectionComponent } from '../../app/category-selection/categor
 import { Category } from '../../app/shared/model/category';
 import { CategoryService } from '../../app/services/category.service';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { GameExitButtonComponent } from "../../app/game-exit-button/game-exit-button.component";
 import { WordDisplayComponent } from "../word-display/word-display.component";
 import { WordStatus } from '../matching-game-module/model/word-status';
@@ -12,13 +12,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
 import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
+import { ExitButtonDialogComponent } from '../../app/exit-button-dialog/exit-button-dialog.component'; 
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
     selector: 'app-matching-game',
     standalone: true,
     templateUrl: './matching-game.component.html',
     styleUrl: './matching-game.component.css',
-    imports: [CategorySelectionComponent, CommonModule, GameExitButtonComponent, WordDisplayComponent, MatCardModule]
+    imports: [CategorySelectionComponent, CommonModule, GameExitButtonComponent, WordDisplayComponent, MatCardModule,ExitButtonDialogComponent, MatButtonModule, RouterLink]
 })
 export class MatchingGameComponent implements OnInit {
   category?: Category;
@@ -65,7 +67,7 @@ export class MatchingGameComponent implements OnInit {
             // Assuming 'origin' represents the English word and 'hebrewTranslation' represents the Hebrew word
             this.interpretations = shuffledWords.map(word => word['target']);
         } else {
-            this.message = 'Not enough words in the category.';
+            this.message = 'Not enough words in this category.';
         }
     }
 
@@ -80,51 +82,82 @@ export class MatchingGameComponent implements OnInit {
     }
 
     onWordClick(index: number): void {
-        if (!this.disableWords) {
-          if (this.sourceWordStatuses[index] === WordStatus.NORMAL) {
-          //  this.sourceWordStatuses.fill(WordStatus.NORMAL);
-            this.sourceWordStatuses[index] = WordStatus.SELECTED;
-            const selectedWord = this.selectedWords[index].origin;
-            let XXX= this.targetWordStatuses.findIndex(status => status == WordStatus.SELECTED)
-            const selectedInterpretationIndex = this.interpretations.findIndex(word => word === selectedWord);
-            if (selectedInterpretationIndex !== -1) {
-              this.checkMatch(index, selectedInterpretationIndex);
-            }
-          } else {
-            this.sourceWordStatuses[index] = WordStatus.NORMAL;
-          }
-        }
+      let prevIndex = this.sourceWordStatuses.findIndex((st) => st == WordStatus.SELECTED);
+      let hebIndex = this.targetWordStatuses.findIndex((st) => st == WordStatus.SELECTED);
+    
+      if (prevIndex > -1) {
+        this.sourceWordStatuses[prevIndex] = WordStatus.NORMAL;
+      }
+      this.sourceWordStatuses[index] = WordStatus.SELECTED;
+    
+      if (hebIndex  == -1) {
+        return;
       }
     
-    onInterpretationClick(index: number): void {
-        if (!this.disableWords) {
-          if (this.targetWordStatuses[index] === WordStatus.NORMAL) {
-            this.targetWordStatuses.fill(WordStatus.NORMAL);
-            this.targetWordStatuses[index] = WordStatus.SELECTED;
-            const selectedInterpretation = this.interpretations[index];
-            const selectedInterpretationIndex = this.interpretations.findIndex(word => word === selectedInterpretation);
-            if (selectedInterpretationIndex !== -1) {
-                this.checkMatch(selectedInterpretationIndex, index);
-            }
-        } else {
-                this.targetWordStatuses[index] = WordStatus.NORMAL;
-            }
-        }
+      let selectedEnglishWord = this.selectedWords[index].origin;
+      let selectedHebrewWord = this.interpretations[hebIndex];
+      
+      if (selectedEnglishWord !== selectedHebrewWord) {
+        // Words do not match
+        this.attempts++;
+        this.totalPoints -= 2; // Deduct 2 points for each disqualification
+        this.openErrorDialog();
+      } else {
+        // Words match
+        this.sourceWordStatuses[index] = WordStatus.DISABLED;
+        this.targetWordStatuses[hebIndex] = WordStatus.DISABLED;
+        this.totalPoints += this.roundPoints;
+        this.successes++;
+        this.openSuccessDialog();
+      }
     }
     
-    checkMatch(sourceIndex: number, targetIndex: number): void {
-        if (this.selectedWords[sourceIndex].origin === this.interpretations[targetIndex]) {
-          // Correct match
-          this.sourceWordStatuses[sourceIndex] = WordStatus.DISABLED;
-          this.targetWordStatuses[targetIndex] = WordStatus.DISABLED;
-          this.totalPoints += this.roundPoints;
-          this.openSuccessDialog();
-        } else {
-          // Incorrect match
-          this.attempts++;
-          this.openErrorDialog();
-        }
+    onInterpretationClick(index: number): void {
+      let prevIndex = this.targetWordStatuses.findIndex((st) => st == WordStatus.SELECTED);
+      let engIndex = this.sourceWordStatuses.findIndex((st) => st == WordStatus.SELECTED);
+    
+      if (prevIndex > -1) {
+        this.targetWordStatuses[prevIndex] = WordStatus.NORMAL;
+      }
+      this.targetWordStatuses[index] = WordStatus.SELECTED;
+    
+      if (engIndex == -1) {
+        return;
+      }
+    
+      let selectedHebrewWord = this.interpretations[index];
+      let selectedEnglishWord = this.selectedWords[engIndex].origin;
+      
+      if (selectedHebrewWord !== selectedEnglishWord) {
+        // Words do not match
+        this.attempts++;
+        this.totalPoints -= 2; // Deduct 2 points for each disqualification
+        this.openErrorDialog();
+      } else {
+        // Words match
+        this.targetWordStatuses[index] = WordStatus.DISABLED;
+        this.sourceWordStatuses[engIndex] = WordStatus.DISABLED;
+        this.totalPoints += this.roundPoints;
+        this.successes++;
+        this.openSuccessDialog();
+      }
     }
+    
+      
+    
+    // checkMatch(sourceIndex: number, targetIndex: number): void {
+    //     if (this.selectedWords[sourceIndex].origin === this.interpretations[targetIndex]) {
+    //       // Correct match
+    //       this.sourceWordStatuses[sourceIndex] = WordStatus.DISABLED;
+    //       this.targetWordStatuses[targetIndex] = WordStatus.DISABLED;
+    //       this.totalPoints += this.roundPoints;
+    //       this.openSuccessDialog();
+    //     } else {
+    //       // Incorrect match
+    //       this.attempts++;
+    //       this.openErrorDialog();
+    //     }
+    // }
     
     openSuccessDialog(): void {
         const dialogRef = this.dialog.open(SuccessDialogComponent, {

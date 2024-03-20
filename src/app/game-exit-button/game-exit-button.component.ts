@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { MatchDialogComponent } from '../../matching-game-module/match-dialog/match-dialog.component';
 import { MatIconModule } from '@angular/material/icon';
+import { ExitButtonDialogComponent } from '../exit-button-dialog/exit-button-dialog.component';
 
 @Component({
   selector: 'app-game-exit-button',
@@ -16,7 +16,7 @@ export class GameExitButtonComponent {
   constructor(private dialog: MatDialog, private router: Router) {}
 
   openExitDialog(): void {
-    const dialogRef = this.dialog.open(MatchDialogComponent);
+    const dialogRef = this.dialog.open(ExitButtonDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'Yes') {

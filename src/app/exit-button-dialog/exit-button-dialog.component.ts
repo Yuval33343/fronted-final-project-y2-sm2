@@ -3,17 +3,19 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogActions, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-match-dialog',
+  selector: 'app-exit-button-dialog',
   standalone: true,
   imports: [MatDialogActions,MatDialogContent, MatDialogTitle, MatButtonModule],
-  templateUrl: './match-dialog.component.html',
-  styleUrl: './match-dialog.component.css'
+  templateUrl: './exit-button-dialog.component.html',
+  styleUrl: './exit-button-dialog.component.css'
 })
-export class MatchDialogComponent {
-  constructor(private dialogRef: MatDialogRef<MatchDialogComponent>) {}
+export class ExitButtonDialogComponent {
+  constructor(private dialogRef: MatDialogRef<ExitButtonDialogComponent>) {}
 
   confirmExit(choice: string): void {
     this.dialogRef.close(choice);
   }
 }
+
+
 

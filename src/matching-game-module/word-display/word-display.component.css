@@ -6,3 +6,7 @@ mat-card.disabled {
     background-color: gray; 
 }
   
+mat-card{
+  width: 200px;
+  height: 100px;
+}

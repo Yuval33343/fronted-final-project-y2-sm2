@@ -5,10 +5,15 @@ body {
   height: 100vh;
   margin: 0;
 }
+
+h2{
+  text-align: center;
+  padding-bottom: 24px ;
+}
   
 .game-description {
   width: 550px;
-  height: 500px;
+  height: 550px;
   background-color: #683ab79c;
   border-radius: 20px;
   padding: 20px;

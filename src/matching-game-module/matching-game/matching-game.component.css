@@ -1,7 +1,26 @@
 h1 {
-    color: #490069;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    text-align: center;
-    font-size: 50px;
-    display: block; 
+  color: #490069;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  text-align: center;
+  font-size: 50px;
+  display: block; 
+}
+
+
+.card-column {
+  display: inline-block;
+  width: 15%; /* Adjust the width as needed */
+  vertical-align: top; /* Align columns to the top */
+  margin-right: 5%; /* Adjust spacing between columns */
+}
+
+.word-container {
+  margin-bottom: 20px; /* Adjust margin between word containers */
+  margin-left: 500px;
+  text-align: center;
+}
+
+.divMessage {
+  text-align: center;
+  font-size: 30px;
 }
