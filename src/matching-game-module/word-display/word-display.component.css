@@ -1,0 +1,8 @@
+mat-card.selected {
+    background-color: blue; 
+  }
+  
+mat-card.disabled {
+    background-color: gray; 
+}
+  

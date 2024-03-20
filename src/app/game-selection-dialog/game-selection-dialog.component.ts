@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { GameProfile } from '../shared/model/game-profile';
 import { NgFor, NgIf } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,6 +20,7 @@ import { Router} from '@angular/router';
     MatSelectModule,
     MatButtonModule,
     FormsModule,
+    MatDialogTitle
   ],
   templateUrl: './game-selection-dialog.component.html',
   styleUrl: './game-selection-dialog.component.css'

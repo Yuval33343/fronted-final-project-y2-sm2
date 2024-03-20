@@ -1,0 +1,20 @@
+<h1 *ngIf="category">Matching Game - {{ category.categoryName }}</h1>
+<app-game-exit-button></app-game-exit-button>
+
+<div class="word-container">
+  <app-word-display *ngFor="let word of selectedWords; let i = index"
+                     [word]="word.origin"
+                     [status]="sourceWordStatuses[i]"
+                     (click)="onWordClick(i)">
+  </app-word-display>
+</div>
+
+<div class="word-container">
+  <app-word-display *ngFor="let interpretation of interpretations; let i = index"
+                     [word]="interpretation"
+                     [status]="targetWordStatuses[i]"
+                     (click)="onInterpretationClick(i)">
+  </app-word-display>
+</div>
+
+<div *ngIf="message">{{ message }}</div>

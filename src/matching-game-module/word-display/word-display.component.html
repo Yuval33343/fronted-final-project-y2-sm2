@@ -1,0 +1,6 @@
+<mat-card [ngClass]="{
+    'selected': status === WordStatus.SELECTED,
+    'disabled': status === WordStatus.DISABLED
+}">
+    {{ word }}
+</mat-card>
