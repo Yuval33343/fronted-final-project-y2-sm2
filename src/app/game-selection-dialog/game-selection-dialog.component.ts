@@ -38,7 +38,6 @@ export class GameSelectionDialogComponent implements OnInit {
     this.games = data.games;
   }
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
   }
   
   assignGame(): void {

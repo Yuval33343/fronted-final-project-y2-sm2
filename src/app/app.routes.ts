@@ -6,6 +6,7 @@ import { TranslateComponent } from './translate/translate.component';
 import { FooterHelpComponent } from './footer-help/footer-help.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatchingGameComponent } from '../matching-game-module/matching-game/matching-game.component';
+import { GameSummaryComponent } from './game-summary/game-summary.component';
 
 
 export const routes: Routes = [
@@ -17,5 +18,7 @@ export const routes: Routes = [
   { path: 'app-footer-help', component: FooterHelpComponent },
   { path: 'app-category-table', component: CategoryTableComponent },
   { path: 'matching-game', component: MatchingGameComponent },
+  { path: 'game-summary', component: GameSummaryComponent },
+  { path: 'matching-game/:categoryId/:gameId', component: MatchingGameComponent },
 
 ]

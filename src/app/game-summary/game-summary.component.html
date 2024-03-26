@@ -1,0 +1,18 @@
+<div class="summary-container">
+  <h2>Game Summary</h2>
+  <p>Total Points: {{ totalPoints }}</p>
+  <p>Grade: {{ 100-(attempts/5)*100 }}%</p>
+  <h3>Words Drawn and Their Meanings</h3>
+  <div class="word-summary" *ngFor="let word of selectedWords; let i = index">
+    <mat-form-field appearance="fill">
+      <mat-label>Word {{ i + 1 }}</mat-label>
+      <input matInput [value]="word" disabled>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Meaning</mat-label>
+      <input matInput [value]="interpretations[i]" disabled>
+    </mat-form-field>
+  </div>
+  <button mat-raised-button color="primary" routerLink='/'>Play Again</button>&nbsp;&nbsp;
+  <button mat-raised-button color="primary" routerLink='/category-selection'>New Game</button>
+</div>

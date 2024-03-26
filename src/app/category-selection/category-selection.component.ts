@@ -4,25 +4,30 @@ import { Category } from '../shared/model/category';
 import { Router, RouterLink } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import {  MatSelectModule } from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { GameProfile } from '../shared/model/game-profile';
 import { GameSelectionDialogComponent } from '../game-selection-dialog/game-selection-dialog.component';
 import { GameService } from '../services/game.service';
+import { PointsDisplayComponent } from "../points-display/points-display.component";
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-category-selection',
-  templateUrl: './category-selection.component.html',
-  styleUrls: ['./category-selection.component.css'],
-  standalone: true,
-  imports: [MatInputModule, MatButtonModule, RouterLink, MatSelectModule,CommonModule,MatCardModule,],
+    selector: 'app-category-selection',
+    templateUrl: './category-selection.component.html',
+    styleUrls: ['./category-selection.component.css'],
+    standalone: true,
+    imports: [ MatIconModule, MatInputModule, MatButtonModule, RouterLink, MatSelectModule, CommonModule, MatCardModule, PointsDisplayComponent]
 })
 export class CategorySelectionComponent implements OnInit {
   @Input() category?: Category;
   categories: Category[] = [];
   games: GameProfile[] = [];
+  totalPoints: number = 0; // Declare totalPoints property
+
+
 
   constructor(
     private categoryService: CategoryService,
@@ -52,4 +57,13 @@ export class CategorySelectionComponent implements OnInit {
       }
     });
   }
+
+  isUpdatedLastWeek(lastModifiedDate: Date): boolean {
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7); // Subtract 7 days
+    
+    return lastModifiedDate > oneWeekAgo;
+    
+  }
 }
+

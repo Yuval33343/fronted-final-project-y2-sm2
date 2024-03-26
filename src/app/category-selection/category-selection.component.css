@@ -43,3 +43,10 @@ mat-card:hover {
 .dateDiv{
     font-size: 12px;
 }
+
+app-points-display {
+    position: absolute; 
+    top: 100px; 
+    right: 100px; 
+    margin-top: 10px; 
+  }

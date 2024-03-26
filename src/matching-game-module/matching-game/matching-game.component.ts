@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CategorySelectionComponent } from '../../app/category-selection/category-selection.component';
 import { Category } from '../../app/shared/model/category';
 import { CategoryService } from '../../app/services/category.service';
@@ -14,13 +14,15 @@ import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
 import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
 import { ExitButtonDialogComponent } from '../../app/exit-button-dialog/exit-button-dialog.component'; 
 import { MatButtonModule } from '@angular/material/button';
+import { PointsDisplayComponent } from "../../app/points-display/points-display.component";
+import { GameSummaryComponent } from "../../app/game-summary/game-summary.component";
 
 @Component({
     selector: 'app-matching-game',
     standalone: true,
     templateUrl: './matching-game.component.html',
     styleUrl: './matching-game.component.css',
-    imports: [CategorySelectionComponent, CommonModule, GameExitButtonComponent, WordDisplayComponent, MatCardModule,ExitButtonDialogComponent, MatButtonModule, RouterLink]
+    imports: [CategorySelectionComponent, CommonModule, GameExitButtonComponent, WordDisplayComponent, MatCardModule, ExitButtonDialogComponent, MatButtonModule, RouterLink, PointsDisplayComponent, GameSummaryComponent]
 })
 export class MatchingGameComponent implements OnInit {
   category?: Category;
@@ -59,6 +61,8 @@ export class MatchingGameComponent implements OnInit {
         });
     }
 
+    
+
     selectRandomWords(): void {
         const words = this.category?.words;
         if (words && words.length >= 5) {
@@ -67,7 +71,7 @@ export class MatchingGameComponent implements OnInit {
             // Assuming 'origin' represents the English word and 'hebrewTranslation' represents the Hebrew word
             this.interpretations = shuffledWords.map(word => word['target']);
         } else {
-            this.message = 'Not enough words in this category.';
+            this.message = 'To play this game, a category must contain at least 5 words.';
         }
     }
 
@@ -84,6 +88,14 @@ export class MatchingGameComponent implements OnInit {
     onWordClick(index: number): void {
       let prevIndex = this.sourceWordStatuses.findIndex((st) => st == WordStatus.SELECTED);
       let hebIndex = this.targetWordStatuses.findIndex((st) => st == WordStatus.SELECTED);
+      if (this.sourceWordStatuses[index] === WordStatus.DISABLED) {
+        // Word is already disabled, do nothing
+        return;
+      }
+      // Reset previously selected Hebrew word status to NORMAL
+      if (hebIndex > -1) {
+        this.targetWordStatuses[hebIndex] = WordStatus.NORMAL;
+      }
     
       if (prevIndex > -1) {
         this.sourceWordStatuses[prevIndex] = WordStatus.NORMAL;
@@ -94,20 +106,21 @@ export class MatchingGameComponent implements OnInit {
         return;
       }
     
-      let selectedEnglishWord = this.selectedWords[index].origin;
+      let selectedEnglishWord = this.selectedWords[index].target;
       let selectedHebrewWord = this.interpretations[hebIndex];
       
       if (selectedEnglishWord !== selectedHebrewWord) {
         // Words do not match
         this.attempts++;
-        this.totalPoints -= 2; // Deduct 2 points for each disqualification
+        this.totalPoints -= 2 ; // Deduct 2 points for each mistake
         this.openErrorDialog();
       } else {
         // Words match
         this.sourceWordStatuses[index] = WordStatus.DISABLED;
         this.targetWordStatuses[hebIndex] = WordStatus.DISABLED;
-        this.totalPoints += this.roundPoints;
+        this.totalPoints += this.roundPoints; // Add 20 points for each correct match
         this.successes++;
+        console.log(this.totalPoints + " " + this.successes +" "+  this.roundPoints)
         this.openSuccessDialog();
       }
     }
@@ -115,6 +128,13 @@ export class MatchingGameComponent implements OnInit {
     onInterpretationClick(index: number): void {
       let prevIndex = this.targetWordStatuses.findIndex((st) => st == WordStatus.SELECTED);
       let engIndex = this.sourceWordStatuses.findIndex((st) => st == WordStatus.SELECTED);
+      if (this.targetWordStatuses[index] === WordStatus.DISABLED) {
+        // Word is already disabled, do nothing
+        return;
+      }
+      if (engIndex > -1) {
+        this.sourceWordStatuses[engIndex] = WordStatus.NORMAL;
+      }
     
       if (prevIndex > -1) {
         this.targetWordStatuses[prevIndex] = WordStatus.NORMAL;
@@ -126,38 +146,24 @@ export class MatchingGameComponent implements OnInit {
       }
     
       let selectedHebrewWord = this.interpretations[index];
-      let selectedEnglishWord = this.selectedWords[engIndex].origin;
-      
+      let selectedEnglishWord = this.selectedWords[engIndex].target;
+
       if (selectedHebrewWord !== selectedEnglishWord) {
         // Words do not match
         this.attempts++;
-        this.totalPoints -= 2; // Deduct 2 points for each disqualification
+        this.totalPoints -= 2; // Deduct 2 points for each mistake
         this.openErrorDialog();
       } else {
         // Words match
         this.targetWordStatuses[index] = WordStatus.DISABLED;
         this.sourceWordStatuses[engIndex] = WordStatus.DISABLED;
-        this.totalPoints += this.roundPoints;
+        this.totalPoints += this.roundPoints; // Add 20 points for each correct match
         this.successes++;
+        console.log(this.totalPoints + " " + this.successes +" "+  this.roundPoints+ "attempts: "+ this.attempts)
         this.openSuccessDialog();
       }
     }
     
-      
-    
-    // checkMatch(sourceIndex: number, targetIndex: number): void {
-    //     if (this.selectedWords[sourceIndex].origin === this.interpretations[targetIndex]) {
-    //       // Correct match
-    //       this.sourceWordStatuses[sourceIndex] = WordStatus.DISABLED;
-    //       this.targetWordStatuses[targetIndex] = WordStatus.DISABLED;
-    //       this.totalPoints += this.roundPoints;
-    //       this.openSuccessDialog();
-    //     } else {
-    //       // Incorrect match
-    //       this.attempts++;
-    //       this.openErrorDialog();
-    //     }
-    // }
     
     openSuccessDialog(): void {
         const dialogRef = this.dialog.open(SuccessDialogComponent, {
@@ -181,5 +187,22 @@ export class MatchingGameComponent implements OnInit {
       
     returnToCategorySelection(): void {
         this.router.navigate(['/category-selection']);
-      }
     }
+
+
+    isGameFinished(): boolean {
+      return this.areAllWordsDisabled();
+    }
+  
+    navigateToGameSummary(): void {
+      this.router.navigate(['/game-summary'], {
+      });
+    }
+  
+    areAllWordsDisabled(): boolean {
+      // Logic to check if all words are disabled
+      // Here, we check if all words are in DISABLED state
+      return this.sourceWordStatuses.every(status => status === WordStatus.DISABLED) &&
+             this.targetWordStatuses.every(status => status === WordStatus.DISABLED);
+    }
+  }
