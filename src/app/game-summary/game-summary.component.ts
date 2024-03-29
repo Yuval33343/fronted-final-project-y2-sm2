@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
+import { TranslatedWord } from '../shared/model/translatword';
 
 @Component({
   selector: 'app-game-summary',
@@ -19,8 +20,7 @@ gameId: any;
   }
   @Input() totalPoints: number = 0;
   @Input() attempts: number = 0;
-  @Input() selectedWords: string[] = [];
-  @Input() interpretations: string[] = [];
+  @Input() selectedWords: TranslatedWord[] = [];
 }
  
   

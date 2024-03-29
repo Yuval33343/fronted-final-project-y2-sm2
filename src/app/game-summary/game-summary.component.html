@@ -6,13 +6,12 @@
   <div class="word-summary" *ngFor="let word of selectedWords; let i = index">
     <mat-form-field appearance="fill">
       <mat-label>Word {{ i + 1 }}</mat-label>
-      <input matInput [value]="word" disabled>
-    </mat-form-field>
+      <input matInput [value]="word.origin" disabled>
+    </mat-form-field>&nbsp;
     <mat-form-field appearance="fill">
       <mat-label>Meaning</mat-label>
-      <input matInput [value]="interpretations[i]" disabled>
+      <input matInput [value]="word.target" disabled>
     </mat-form-field>
   </div>
-  <button mat-raised-button color="primary" routerLink='/'>Play Again</button>&nbsp;&nbsp;
   <button mat-raised-button color="primary" routerLink='/category-selection'>New Game</button>
 </div>

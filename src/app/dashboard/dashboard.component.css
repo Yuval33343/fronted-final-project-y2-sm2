@@ -5,3 +5,36 @@ span {
     font-size: 50px;
     display: block; 
 }
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px; /* Adjust the margin as needed */
+}
+
+
+.played-card {
+    background-color: #bee7c2; /* Change the background color of the first card */
+    text-align: center;
+    margin-right: 50px;
+
+}
+
+.got-card {
+    background-color: #81d4fa; /* Change the background color of the second card */
+    text-align: center;
+}
+
+mat-card {
+    border-radius: 40px; 
+    width: 300px;
+    height: 200px;
+}
+
+.card-title{
+    margin-top: 40px;
+}
+
+.dateDiv{
+    font-size: 20px;
+}

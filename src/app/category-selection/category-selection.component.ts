@@ -13,6 +13,7 @@ import { GameSelectionDialogComponent } from '../game-selection-dialog/game-sele
 import { GameService } from '../services/game.service';
 import { PointsDisplayComponent } from "../points-display/points-display.component";
 import { MatIconModule } from '@angular/material/icon';
+import { GamePointsService } from '../services/game-points.service';
 
 @Component({
     selector: 'app-category-selection',
@@ -25,20 +26,26 @@ export class CategorySelectionComponent implements OnInit {
   @Input() category?: Category;
   categories: Category[] = [];
   games: GameProfile[] = [];
-  totalPoints: number = 0; // Declare totalPoints property
-
+  MaintotalPoints: number = 0; // Declare totalPoints property
+  
 
 
   constructor(
     private categoryService: CategoryService,
     private router: Router,
     private dialog: MatDialog,
-    private gameService: GameService // Inject GameService
-  ) { }
+    private gameService: GameService,
+    private gamePointsService: GamePointsService,
+    ) { }
 
   ngOnInit(): void {
     this.categories = this.categoryService.list();
     this.games = this.gameService.list(); // Fetch games from GameService
+    let arrPoints = this.gamePointsService.list()
+
+    for(let i of arrPoints ){
+      this.MaintotalPoints += i.points
+    }
   }
 
   startGame(categoryId: number): void {
@@ -58,12 +65,14 @@ export class CategorySelectionComponent implements OnInit {
     });
   }
 
-  isUpdatedLastWeek(lastModifiedDate: Date): boolean {
-    const oneWeekAgo = new Date();
-    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7); // Subtract 7 days
-    
-    return lastModifiedDate > oneWeekAgo;
-    
+  isUpdatedLastWeek(date: Date): boolean {
+    const oneWeekInMilliseconds = 7 * 24 * 60 * 60 * 1000; // One week in milliseconds
+    const currentDate = new Date();
+    const difference = currentDate.getTime() - new Date(date).getTime();
+
+    return difference < oneWeekInMilliseconds;
   }
+
+  
 }
 

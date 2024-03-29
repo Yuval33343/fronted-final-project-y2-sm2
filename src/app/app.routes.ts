@@ -19,6 +19,4 @@ export const routes: Routes = [
   { path: 'app-category-table', component: CategoryTableComponent },
   { path: 'matching-game', component: MatchingGameComponent },
   { path: 'game-summary', component: GameSummaryComponent },
-  { path: 'matching-game/:categoryId/:gameId', component: MatchingGameComponent },
-
 ]

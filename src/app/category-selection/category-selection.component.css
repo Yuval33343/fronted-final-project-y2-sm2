@@ -50,3 +50,13 @@ app-points-display {
     right: 100px; 
     margin-top: 10px; 
   }
+
+  mat-icon {
+    color: rgb(255, 255, 0); 
+    font-size: 36px; 
+    position: absolute; 
+    top: 20px; 
+    right: 30px;
+    filter: drop-shadow(2px 2px 4px rgba(0.4, 0.4, 0.2, 0.4)); 
+    padding: 10px;
+}

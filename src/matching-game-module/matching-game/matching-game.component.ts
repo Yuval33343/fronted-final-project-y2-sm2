@@ -16,6 +16,8 @@ import { ExitButtonDialogComponent } from '../../app/exit-button-dialog/exit-but
 import { MatButtonModule } from '@angular/material/button';
 import { PointsDisplayComponent } from "../../app/points-display/points-display.component";
 import { GameSummaryComponent } from "../../app/game-summary/game-summary.component";
+import { GamePointsService } from '../../app/services/game-points.service';
+import { GamePlayed } from '../../app/shared/model/game-played';
 
 @Component({
     selector: 'app-matching-game',
@@ -42,7 +44,8 @@ export class MatchingGameComponent implements OnInit {
       private route: ActivatedRoute,
       private categoryService: CategoryService,
       private router: Router,
-      private dialog: MatDialog
+      private dialog: MatDialog,
+      private gamePointsService: GamePointsService
     ) {}
 
     ngOnInit(): void {
@@ -120,8 +123,10 @@ export class MatchingGameComponent implements OnInit {
         this.targetWordStatuses[hebIndex] = WordStatus.DISABLED;
         this.totalPoints += this.roundPoints; // Add 20 points for each correct match
         this.successes++;
-        console.log(this.totalPoints + " " + this.successes +" "+  this.roundPoints)
         this.openSuccessDialog();
+        if(this.isGameFinished()){
+          this.gamePointsService.addGamePlayed(new GamePlayed(this.category!.id, 1, new Date(), this.totalPoints ))
+        }
       }
     }
     
@@ -159,9 +164,12 @@ export class MatchingGameComponent implements OnInit {
         this.sourceWordStatuses[engIndex] = WordStatus.DISABLED;
         this.totalPoints += this.roundPoints; // Add 20 points for each correct match
         this.successes++;
-        console.log(this.totalPoints + " " + this.successes +" "+  this.roundPoints+ "attempts: "+ this.attempts)
         this.openSuccessDialog();
+        if(this.isGameFinished()){
+          this.gamePointsService.addGamePlayed(new GamePlayed(this.category!.id, 1, new Date(), this.totalPoints )) 
+        }
       }
+      
     }
     
     
@@ -203,6 +211,7 @@ export class MatchingGameComponent implements OnInit {
       // Logic to check if all words are disabled
       // Here, we check if all words are in DISABLED state
       return this.sourceWordStatuses.every(status => status === WordStatus.DISABLED) &&
-             this.targetWordStatuses.every(status => status === WordStatus.DISABLED);
+             this.targetWordStatuses.every(status => status === WordStatus.DISABLED) &&
+             (this.category?.words.length ?? 0) >= 5;
     }
   }
