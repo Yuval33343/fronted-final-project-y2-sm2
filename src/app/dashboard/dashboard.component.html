@@ -3,12 +3,12 @@
 <div class="card-container">
     <mat-card class="played-card">
         <div class="card-title">
-            <mat-card-title>You Played</mat-card-title>
+            You Played <mat-card-title> {{ gamesPlayed.length }} </mat-card-title>
         </div>
         <div class="card-content">
             <mat-card-content>     
-                <div class="dateDiv"> 
-                    {{ gamesPlayed.length }} <br><br> Games
+                <div class="numDiv"> 
+                     Games
                 </div>
             </mat-card-content>
         </div>
@@ -16,12 +16,12 @@
 
     <mat-card class="got-card">
         <div class="card-title">
-            <mat-card-title>You Got</mat-card-title>
+            You Got <mat-card-title> {{ MaintotalPoints }} </mat-card-title>
         </div>
         <div class="card-content">
             <mat-card-content>     
-                <div class="dateDiv"> 
-                    {{ MaintotalPoints }} <br><br> Points
+                <div class="numDiv"> 
+                     Points
                 </div>
             </mat-card-content>
         </div>
