@@ -38,19 +38,28 @@ export class CategorySelectionComponent implements OnInit {
     private gamePointsService: GamePointsService,
     ) { }
 
-  ngOnInit(): void {
-    this.categories = this.categoryService.list();
-    this.games = this.gameService.list(); // Fetch games from GameService
-    let arrPoints = this.gamePointsService.list()
-
-    for(let i of arrPoints ){
-      this.MaintotalPoints += i.points
-    }
+    ngOnInit(): void {
+      this.loadCategories();
   }
 
-  startGame(categoryId: number): void {
-    this.router.navigate(['/translate', categoryId]);
-  }  
+  loadCategories(): void {
+      this.categories = this.categoryService.list();
+      this.games = this.gameService.list(); // Fetch games from GameService
+      const arrPoints = this.gamePointsService.list();
+
+      for (const i of arrPoints) {
+          this.MaintotalPoints += i.points;
+      }
+
+      // Sort categories by last updated date
+      this.categories.sort((a, b) => {
+          return new Date(b.lastModifiedDate).getTime() - new Date(a.lastModifiedDate).getTime();
+      });
+  }
+
+  // startGame(categoryId: number): void {
+  //   this.router.navigate(['/translate', categoryId]);
+  // }  
 
   openGameSelectionDialog(categoryId: number): void {
     const dialogRef = this.dialog.open(GameSelectionDialogComponent, {
