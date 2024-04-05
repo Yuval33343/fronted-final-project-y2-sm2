@@ -1,0 +1,44 @@
+h1 {
+    color: #490069;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
+    font-size: 50px;
+    display: block; 
+}
+
+app-points-display {
+    position: absolute; 
+    top: 100px; 
+    right: 100px; 
+    margin-top: 10px; 
+}
+
+app-game-exit-button {
+    position: absolute; 
+    top: 100px; 
+    right: -10; 
+    margin-top: 10px; 
+    margin-left: 50px;
+}
+
+mat-form-field {
+    max-width: 250px;
+    width: 100%;
+}
+.word-item{
+    text-align: center;
+    margin-top: 80px;
+    font-size: 32px;
+}
+
+span{
+    background-color: white;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+mat-progress-bar {
+    width: 50%; 
+    margin-left: 380px;
+  }
+  

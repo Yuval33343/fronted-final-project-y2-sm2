@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CategorySelectionComponent } from '../../app/category-selection/category-selection.component';
 import { Category } from '../../app/shared/model/category';
 import { CategoryService } from '../../app/services/category.service';
@@ -15,7 +15,7 @@ import { SuccessDialogComponent } from '../success-dialog/success-dialog.compone
 import { ExitButtonDialogComponent } from '../../app/exit-button-dialog/exit-button-dialog.component'; 
 import { MatButtonModule } from '@angular/material/button';
 import { PointsDisplayComponent } from "../../app/points-display/points-display.component";
-import { GameSummaryComponent } from "../../app/game-summary/game-summary.component";
+import { GameSummaryComponent } from "../../app/matching-game-summary/game-summary.component";
 import { GamePointsService } from '../../app/services/game-points.service';
 import { GamePlayed } from '../../app/shared/model/game-played';
 
@@ -27,6 +27,7 @@ import { GamePlayed } from '../../app/shared/model/game-played';
     imports: [CategorySelectionComponent, CommonModule, GameExitButtonComponent, WordDisplayComponent, MatCardModule, ExitButtonDialogComponent, MatButtonModule, RouterLink, PointsDisplayComponent, GameSummaryComponent]
 })
 export class MatchingGameComponent implements OnInit {
+  @Input() selectedCategoryId?: string;
   category?: Category;
   selectedWords: TranslatedWord[] = [];
   interpretations: string[] = [];
@@ -41,19 +42,14 @@ export class MatchingGameComponent implements OnInit {
 
 
   constructor(
-      private route: ActivatedRoute,
       private categoryService: CategoryService,
-      private router: Router,
       private dialog: MatDialog,
       private gamePointsService: GamePointsService
-    ) {}
+  ) {}
 
-    ngOnInit(): void {
-        this.route.queryParams.subscribe(params => {
-            const categoryId = params['categoryId'];
-            const gameId = params['gameId'];
+  ngOnInit(): void {
             // Fetch the selected category based on categoryId
-            this.category = this.categoryService.get(parseInt(categoryId));
+            this.category = this.categoryService.get(parseInt(this.selectedCategoryId!));
             if (this.category) {
                 this.selectRandomWords();
                 this.shuffleInterpretations();
@@ -61,12 +57,11 @@ export class MatchingGameComponent implements OnInit {
             } else {
                 this.message = 'Category not found. Please select another category.';
             }
-        });
-    }
+  }
 
     
 
-    selectRandomWords(): void {
+  selectRandomWords(): void {
         const words = this.category?.words;
         if (words && words.length >= 5) {
             const shuffledWords = words.sort(() => Math.random() - 0.5).slice(0, 5);
@@ -76,19 +71,19 @@ export class MatchingGameComponent implements OnInit {
         } else {
             this.message = 'To play this game, a category must contain at least 5 words.';
         }
-    }
+  }
 
 
-    shuffleInterpretations(): void {
-        this.interpretations.sort(() => Math.random() - 0.5);
-    }
+  shuffleInterpretations(): void {
+      this.interpretations.sort(() => Math.random() - 0.5);
+  }
 
-    initializeWordStatuses(): void {
+  initializeWordStatuses(): void {
       this.sourceWordStatuses = Array(this.selectedWords.length).fill(WordStatus.NORMAL);
       this.targetWordStatuses = Array(this.interpretations.length).fill(WordStatus.NORMAL);
-    }
+  }
 
-    onWordClick(index: number): void {
+  onWordClick(index: number): void {
       let prevIndex = this.sourceWordStatuses.findIndex((st) => st == WordStatus.SELECTED);
       let hebIndex = this.targetWordStatuses.findIndex((st) => st == WordStatus.SELECTED);
       if (this.sourceWordStatuses[index] === WordStatus.DISABLED) {
@@ -128,9 +123,9 @@ export class MatchingGameComponent implements OnInit {
           this.gamePointsService.addGamePlayed(new GamePlayed(this.category!.id, 1, new Date(), this.totalPoints ))
         }
       }
-    }
+  }
     
-    onInterpretationClick(index: number): void {
+  onInterpretationClick(index: number): void {
       let prevIndex = this.targetWordStatuses.findIndex((st) => st == WordStatus.SELECTED);
       let engIndex = this.sourceWordStatuses.findIndex((st) => st == WordStatus.SELECTED);
       if (this.targetWordStatuses[index] === WordStatus.DISABLED) {
@@ -170,10 +165,10 @@ export class MatchingGameComponent implements OnInit {
         }
       }
       
-    }
+  }
     
     
-    openSuccessDialog(): void {
+  openSuccessDialog(): void {
         const dialogRef = this.dialog.open(SuccessDialogComponent, {
           width: '250px',
         });
@@ -181,9 +176,9 @@ export class MatchingGameComponent implements OnInit {
         dialogRef.afterClosed().subscribe(() => {
           // Continue with game
         });
-    }
+  }
       
-    openErrorDialog(): void {
+  openErrorDialog(): void {
         const dialogRef = this.dialog.open(ErrorDialogComponent, {
           width: '250px',
         });
@@ -191,27 +186,22 @@ export class MatchingGameComponent implements OnInit {
         dialogRef.afterClosed().subscribe(() => {
           // Continue with game
         });
-    }
+  }
       
-    returnToCategorySelection(): void {
-        this.router.navigate(['/category-selection']);
-    }
 
 
-    isGameFinished(): boolean {
+
+  isGameFinished(): boolean {
       return this.areAllWordsDisabled();
-    }
+  }
   
-    navigateToGameSummary(): void {
-      this.router.navigate(['/game-summary'], {
-      });
-    }
   
-    areAllWordsDisabled(): boolean {
+  
+  areAllWordsDisabled(): boolean {
       // Logic to check if all words are disabled
       // Here, we check if all words are in DISABLED state
       return this.sourceWordStatuses.every(status => status === WordStatus.DISABLED) &&
              this.targetWordStatuses.every(status => status === WordStatus.DISABLED) &&
              (this.category?.words.length ?? 0) >= 5;
-    }
   }
+}

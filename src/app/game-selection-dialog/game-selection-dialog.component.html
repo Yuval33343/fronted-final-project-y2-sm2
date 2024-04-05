@@ -19,7 +19,7 @@
     </div>
 
     <div class="button">
-    <button mat-raised-button color="primary" [disabled]="!selectedGame" (click)="assignGame()">
+    <button mat-raised-button color="primary" [disabled]="!selectedGame" [routerLink]="[selectedGame?.url, categoryId]" mat-dialog-close>
         Play Game
     </button>
     </div>

@@ -7,8 +7,8 @@ import { GameDifficulty } from '../shared/model/game-difficulty';
 })
 export class GameService {
   private allGames : GameProfile[] = [
-    new GameProfile(1, "Matching Game", "Match the word with its translation.", GameDifficulty.EASY, "https://example.com/game1"),
-    new GameProfile(2, "Trivia", "Choose every word's translation from a list of 4 options.", GameDifficulty.HARD, "https://example.com/game2"),
+    new GameProfile(1, "Matching Game", "Match the word with its translation.", GameDifficulty.EASY, "matching-game"),
+    new GameProfile(2, "Mixed Letters", "Arrange the letters of the word in the right order.", GameDifficulty.HARD, "mixed-letters"),
 
   ];
 

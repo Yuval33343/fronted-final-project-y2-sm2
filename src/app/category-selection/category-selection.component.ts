@@ -65,13 +65,7 @@ export class CategorySelectionComponent implements OnInit {
     const dialogRef = this.dialog.open(GameSelectionDialogComponent, {
       data: { categoryId, games: this.games } // Pass categoryId along with games
     });
-    dialogRef.afterClosed().subscribe((selectedGame: GameProfile | undefined) => {
-      if (selectedGame) {
-        this.router.navigate(['/matching-game'], {
-          queryParams: { categoryId, gameId: selectedGame.id } // Pass both categoryId and gameId
-        });
-      }
-    });
+  
   }
 
   isUpdatedLastWeek(date: Date): boolean {
