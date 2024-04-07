@@ -14,6 +14,8 @@ export class SuccessDialogComponent {
     public dialogRef: MatDialogRef<SuccessDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
+  
+  message = this.data.message;
 
   onContinue(): void {
     this.dialogRef.close();

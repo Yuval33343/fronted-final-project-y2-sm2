@@ -14,6 +14,8 @@ export class ErrorDialogComponent {
     public dialogRef: MatDialogRef<ErrorDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
+  
+  message = this.data.message;
 
   onGotIt(): void {
     this.dialogRef.close();

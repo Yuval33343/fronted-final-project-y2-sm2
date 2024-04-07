@@ -10,12 +10,12 @@
         <input matInput type="text" [(ngModel)]="category.words[currentWordIndex].userInput" placeholder="Enter correct English word" ngModel pattern="[a-zA-Z ]*" #inputField="ngModel">
         <mat-error *ngIf="inputField.invalid">Only English letters must be entered</mat-error>
     </mat-form-field><br><br> 
-    <button mat-raised-button color="primary" (click)="checkWord(category.words[currentWordIndex])" [disabled]="inputField.invalid">Submit</button>
+    <button mat-raised-button color="primary" (click)="checkWord(category.words[currentWordIndex])" [disabled]="inputField.invalid">Submit</button>&nbsp;
     <button mat-raised-button color="warn" (click)="resetInput()">Reset</button><br><br><br> 
     <mat-progress-bar mode="determinate" [value]="calculateProgress()"></mat-progress-bar>
   </div>
 </div>
 <div *ngIf="isGameFinished()"><app-mixed-letters-summary [totalPoints]="totalPoints"
-                                                        [selectedWords]="selectedWords">
-                                </app-mixed-letters-summary>
+                                                         [selectedWords]="selectedWords">
+                              </app-mixed-letters-summary>
 </div>

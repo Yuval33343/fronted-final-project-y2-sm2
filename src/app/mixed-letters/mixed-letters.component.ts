@@ -67,7 +67,7 @@ export class MixedLettersComponent implements OnInit {
             // Display success dialog
             this.dialog.open(SuccessDialogComponent, {
                 width: '250px',
-                data: { message: 'Correct spelling!' }
+                data: { message: 'Congratulations! You spell the word correctly!' }
             });
             // Increment total points
             this.totalPoints+=20;
@@ -75,10 +75,10 @@ export class MixedLettersComponent implements OnInit {
             // Display failure dialog
             this.dialog.open(ErrorDialogComponent, {
                 width: '250px',
-                data: { message: 'Incorrect spelling!' }
+                data: { message: 'Oops, You did not spell the word correctly.' }
             });
             this.totalPoints-=2;
-        }
+        }   
         // Move to the next word
         this.moveToNextWord();
 

@@ -1,6 +1,6 @@
 <div class="summary-container">
     <h2>Game Summary</h2>
-    <p>Grade: {{ ((correctTranslationsCount() / selectedWords.length) * 100) }}%</p>
+    <p>Grade: {{ ((correctTranslationsCount() / selectedWords.length) * 100).toFixed(2) }}%</p>
     <p>You translated {{ correctTranslationsCount() }} out of {{ selectedWords.length }} words correctly.</p>
 
     <h3>Words Drawn and Their Meanings</h3>
@@ -16,5 +16,7 @@
         <span *ngIf="word.userInput?.toLowerCase() === word.origin.toLowerCase()" class="result-icon correct">✓</span>
         <span *ngIf="word.userInput?.toLowerCase() !== word.origin.toLowerCase()" class="result-icon incorrect">✗</span>
     </div>
-    <button mat-raised-button color="primary" routerLink="/category-selection">New Game</button>
+    <button mat-raised-button color="primary" routerLink="/category-selection">New Game</button>&nbsp;
+    <button mat-raised-button color="primary" (click)="playAgain()">Play Again</button>
+
 </div>

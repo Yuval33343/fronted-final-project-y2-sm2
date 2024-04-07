@@ -21,6 +21,11 @@ gameId: any;
   @Input() totalPoints: number = 0;
   @Input() attempts: number = 0;
   @Input() selectedWords: TranslatedWord[] = [];
+
+  playAgain(): void {
+    window.location.reload();
+  }
+
 }
  
   

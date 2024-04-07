@@ -1,4 +1,4 @@
-import { Component, Input, NgModule, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { TranslatedWord } from '../shared/model/translatword';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgFor, NgIf } from '@angular/common';
@@ -22,6 +22,10 @@ export class MixedLettersSummaryComponent implements OnInit  {
   constructor() {}
 
   ngOnInit(): void {}
+
+  playAgain(): void {
+    window.location.reload();
+  }
 
   correctTranslationsCount(): number {
     let correctCount = 0;

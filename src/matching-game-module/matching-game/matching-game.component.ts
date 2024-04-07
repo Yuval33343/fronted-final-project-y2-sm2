@@ -171,6 +171,7 @@ export class MatchingGameComponent implements OnInit {
   openSuccessDialog(): void {
         const dialogRef = this.dialog.open(SuccessDialogComponent, {
           width: '250px',
+          data: { message: "Congratulations! You have found a matching pair."}
         });
       
         dialogRef.afterClosed().subscribe(() => {
@@ -181,6 +182,7 @@ export class MatchingGameComponent implements OnInit {
   openErrorDialog(): void {
         const dialogRef = this.dialog.open(ErrorDialogComponent, {
           width: '250px',
+          data: { message: "Oops, That's not a matching pair. Please try again." }
         });
       
         dialogRef.afterClosed().subscribe(() => {
