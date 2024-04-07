@@ -8,7 +8,9 @@
 
 .h2Title{
     font-size: 24px;
-    padding-bottom: 24px;
+    background-color: #673AB7;
+    text-align: center;
+    color: white;
 }
 
 .button{

@@ -67,7 +67,7 @@ export class MixedLettersComponent implements OnInit {
             // Display success dialog
             this.dialog.open(SuccessDialogComponent, {
                 width: '250px',
-                data: { message: 'Congratulations! You spell the word correctly!' }
+                data: { message: 'Congratulations!!!!!! You spell the word correctly!' }
             });
             // Increment total points
             this.totalPoints+=20;
