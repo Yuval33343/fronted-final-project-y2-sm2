@@ -70,14 +70,13 @@ export class MixedLettersComponent implements OnInit {
                 data: { message: 'Congratulations!!!!!! You spell the word correctly!' }
             });
             // Increment total points
-            this.totalPoints+=20;
+            this.totalPoints+=Math.floor(100/this.category?.words.length!);
         } else {
             // Display failure dialog
             this.dialog.open(ErrorDialogComponent, {
                 width: '250px',
                 data: { message: 'Oops, You did not spell the word correctly.' }
             });
-            this.totalPoints-=2;
         }   
         // Move to the next word
         this.moveToNextWord();
