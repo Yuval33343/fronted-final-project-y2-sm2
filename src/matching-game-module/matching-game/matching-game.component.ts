@@ -151,7 +151,7 @@ export class MatchingGameComponent implements OnInit {
       if (selectedHebrewWord !== selectedEnglishWord) {
         // Words do not match
         this.attempts++;
-        this.totalPoints -= 2; // Deduct 2 points for each mistake
+        this.totalPoints -= 2; // Deduct 2 points for each mistake 
         this.openErrorDialog();
       } else {
         // Words match
@@ -173,23 +173,28 @@ export class MatchingGameComponent implements OnInit {
           width: '250px',
           data: { message: "Congratulations!!!!!! You have found a matching pair." }
         });
-      
-        dialogRef.afterClosed().subscribe(() => {
-          // Continue with game
-        });
   }
       
   openErrorDialog(): void {
-        const dialogRef = this.dialog.open(ErrorDialogComponent, {
-          width: '250px',
-          data: { message: "Oops, That's not a matching pair..... Please try again." }
-        });
-      
-        dialogRef.afterClosed().subscribe(() => {
-          // Continue with game
-        });
+    const dialogRef = this.dialog.open(ErrorDialogComponent, {
+        width: '250px',
+        data: { message: "Oops, That's not a matching pair..... Please try again." }
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+        // Reset the status of both the English word and its interpretation
+        const engIndex = this.sourceWordStatuses.findIndex(status => status === WordStatus.SELECTED);
+        const hebIndex = this.targetWordStatuses.findIndex(status => status === WordStatus.SELECTED);
+        
+        if (engIndex !== -1) {
+            this.sourceWordStatuses[engIndex] = WordStatus.NORMAL;
+        }
+        if (hebIndex !== -1) {
+            this.targetWordStatuses[hebIndex] = WordStatus.NORMAL;
+        }
+    });
   }
-      
+
 
 
 
