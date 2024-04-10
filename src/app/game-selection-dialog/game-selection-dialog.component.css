@@ -1,0 +1,18 @@
+.dialogContainer{
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 30px;
+    text-align: center;
+}
+
+.h2Title{
+    font-size: 24px;
+    background-color: #673AB7;
+    text-align: center;
+    color: white;
+}
+
+.button{
+    padding-top:10px;
+}

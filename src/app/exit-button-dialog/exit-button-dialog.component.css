@@ -1,0 +1,17 @@
+h2, div{
+    text-align: center;
+}
+
+button{
+    margin-left: 120px;
+}
+
+.mat-dialog-title{
+    text-align: center;
+    background-color: #FF6770;
+    color: white;
+    margin-bottom: 15px;
+}
+.mat-dialog-content{
+    font-size: 18px;
+}

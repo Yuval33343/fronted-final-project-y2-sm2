@@ -1,0 +1,22 @@
+<div class="summary-container">
+    <h2>Game Summary</h2>
+    <p>Total Points: {{ totalPoints }}</p>
+    <p>You translated {{ correctTranslationsCount() }} out of {{ selectedWords.length }} words correctly.</p>
+
+    <h3>Words Drawn and Their Meanings</h3>
+    <div class="word-summary" *ngFor="let word of selectedWords; let i = index">
+        <mat-form-field appearance="fill">
+            <mat-label>Word {{ i + 1 }}</mat-label>
+            <input matInput [value]="word.origin" disabled>
+        </mat-form-field>&nbsp;
+        <mat-form-field appearance="fill">
+            <mat-label>Meaning</mat-label>
+            <input matInput [value]="word.target" disabled>
+        </mat-form-field>
+        <span *ngIf="word.userInput?.toLowerCase() === word.origin.toLowerCase()" class="result-icon correct">✓</span>
+        <span *ngIf="word.userInput?.toLowerCase() !== word.origin.toLowerCase()" class="result-icon incorrect">✗</span>
+    </div>
+    <button mat-raised-button color="primary" routerLink="/category-selection">New Game</button>&nbsp;
+    <button mat-raised-button color="primary" (click)="playAgain()">Play Again</button>
+
+</div>

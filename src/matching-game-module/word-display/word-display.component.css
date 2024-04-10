@@ -1,0 +1,16 @@
+mat-card.selected {
+    background-color: blue; 
+  }
+  
+mat-card.disabled {
+    background-color: gray; 
+}
+  
+mat-card{
+  width: 220px;
+  height: 100px;
+}
+.mat-card {
+  padding-top: 28px; 
+  margin-bottom: 12px;
+}

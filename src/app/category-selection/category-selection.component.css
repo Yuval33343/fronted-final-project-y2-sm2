@@ -1,5 +1,4 @@
 span {
-    width: fit-content;  
     color: #490069;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     text-align: center;
@@ -7,13 +6,57 @@ span {
     display: block; 
 }
 
-:host{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10px ;
-}
-
 #s1{
     font-size: 40px;
+}
+
+.div-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr ;
+}
+
+.card-container {
+    padding: 30px; 
+    text-align: center;
+    font-weight: 300;
+}
+
+
+.card-title{
+    margin-top: 40px;
+}
+
+.card-content{
+    margin-bottom: 40px;
+}
+
+mat-card {
+    border-radius: 40px; 
+}
+
+mat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.dateDiv{
+    font-size: 12px;
+}
+
+app-points-display {
+    position: absolute; 
+    top: 100px; 
+    right: 100px; 
+    margin-top: 10px; 
+  }
+
+  mat-icon {
+    color: rgb(255, 255, 0); 
+    font-size: 36px; 
+    position: absolute; 
+    top: 20px; 
+    right: 30px;
+    filter: drop-shadow(2px 2px 4px rgba(0.4, 0.4, 0.2, 0.4)); 
+    padding: 10px;
 }

@@ -1,0 +1,52 @@
+span {
+    color: #490069;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
+    font-size: 50px;
+    display: block; 
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px; /* Adjust the margin as needed */
+}
+
+
+.played-card {
+    background-color: #bee7c2; /* Change the background color of the first card */
+    text-align: center;
+    margin-right: 50px;
+
+}
+
+.got-card {
+    background-color: #81d4fa; /* Change the background color of the second card */
+    text-align: center;
+}
+
+mat-card {
+    border-radius: 40px; 
+    width: 300px;
+    height: 200px;
+}
+
+.card-title{
+    margin-top: 24px;
+    font-size: 20px;
+
+    
+}
+
+mat-card-title{
+    font-size: 90px;
+    margin-top: 35px;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px black, 0 0 25px rgb(140, 0, 255), 0 0 5px rgb(191, 0, 255);
+}
+
+.numDiv{
+    font-size: 20px;
+    margin-top: 20px;
+
+}

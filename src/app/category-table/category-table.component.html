@@ -14,7 +14,7 @@
 
   <ng-container matColumnDef="lastModified">
     <th mat-header-cell *matHeaderCellDef  mat-sort-header="Cdate"> Last Modified </th>
-    <td mat-cell *matCellDef="let category"> {{ category.lastModifiedDate | date:'short' }} </td>
+    <td mat-cell *matCellDef="let category"> {{ category.lastModifiedDate | date:'d/M/yy, hh:mm a' }} </td>
   </ng-container>
 
  
@@ -22,18 +22,18 @@
     <th mat-header-cell *matHeaderCellDef> Actions </th>
     <td id="tdAct" mat-cell *matCellDef="let category">
      <button mat-icon-button color="primary" [routerLink]="['/categoryform', category.id]">
-  <mat-icon>edit</mat-icon>
-</button>
-<button mat-icon-button color="warn" (click)="deleteCategory(category.id,category.categoryName)">
-  <mat-icon>delete</mat-icon>
-</button>
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="deleteCategory(category.id,category.categoryName)">
+        <mat-icon>delete</mat-icon>
+      </button>
     </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table><br><br>
+</table><br>
 
 <div class="categoryButton">
-  <button mat-raised-button color="primary" routerLink='/categorynew'>New Category</button>
-</div>
+  <button mat-raised-button color="primary" routerLink='/categorynew'>+ New Category</button>
+</div> 

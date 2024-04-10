@@ -1,0 +1,44 @@
+h1 {
+  color: #490069;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  text-align: center;
+  font-size: 50px;
+  display: block; 
+  position: relative; 
+  padding-bottom: 16px;
+
+}
+
+
+.card-column {
+  display: inline-block;
+  width: 15%; 
+  vertical-align: top;
+  margin-right: 8%; 
+}
+
+.word-container {
+  margin-left: 480px;
+  text-align: center;
+  font-size: 32px;
+}
+
+.divMessage {
+  text-align: center;
+  font-size: 30px;
+}
+
+app-game-exit-button {
+  position: absolute; 
+  top: 100px; 
+  right: -10; 
+  margin-top: 10px; 
+  margin-left: 50px;
+}
+
+app-points-display {
+  position: absolute; 
+  top: 100px; 
+  right: 100px; 
+  margin-top: 10px; 
+}

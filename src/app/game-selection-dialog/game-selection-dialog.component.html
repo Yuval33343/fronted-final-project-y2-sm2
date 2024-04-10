@@ -1,0 +1,26 @@
+<h2 mat-dialog-title class="h2Title">Select a Game</h2>
+<div class="dialogContainer">
+    
+    <div>
+    <mat-form-field>
+        <mat-label>Choose Game:</mat-label>
+        <mat-select [(ngModel)]="selectedGame">
+        <mat-option *ngFor="let game of games" [value]="game">{{ game.name }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    </div>
+
+    <div *ngIf="selectedGame">
+    <h3>Game Description:</h3>
+    <p>{{ selectedGame.description }}</p>
+    
+    <h3>Difficulty Level:</h3>
+    <p>{{ selectedGame.difficulty }}</p>
+    </div>
+
+    <div class="button">
+    <button mat-raised-button color="primary" [disabled]="!selectedGame" [routerLink]="[selectedGame?.url, categoryId]" mat-dialog-close>
+        Play Game
+    </button>
+    </div>
+</div>

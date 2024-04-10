@@ -1,0 +1,10 @@
+.icon-button {
+    border: none; 
+    background: none; 
+}
+
+.large-icon {
+    font-size: 50px; 
+    padding: 30px;
+    cursor: pointer;
+}

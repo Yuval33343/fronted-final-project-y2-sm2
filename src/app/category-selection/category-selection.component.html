@@ -1,16 +1,22 @@
-<h1><span>Let's Play!</span></h1><br> 
+<h1><span>Let's Play!</span></h1>
 <h2><span id="s1">Choose Category:</span></h2>
+<app-points-display [points]="MaintotalPoints"></app-points-display>
 
 
 
-<mat-form-field>
-  <mat-label>Select</mat-label>
-  <mat-select [(value)]="selected">
-    <mat-option *ngFor="let category of categories" [value]="category.id">{{category.categoryName}}</mat-option>
-  </mat-select>
-  
-</mat-form-field><br> <br> 
-
-<div class="play">
-  <button [disabled]="selected==0" mat-raised-button color="primary" [routerLink]="['/translate',selected]">PLAY</button>
+<div class="div-container">
+  <div *ngFor="let category of categories" class="card-container">
+    <mat-card (click)="openGameSelectionDialog(category.id)">
+      <div class="card-title">
+        <mat-card-title>{{category.categoryName}}</mat-card-title>
+      </div>
+      <div class="card-content">
+        <mat-card-content *ngIf="category?.words?.length">{{category?.words?.length  + " Words"}} <br><br>    
+          <div class="dateDiv"> Last Updated: {{ category.lastModifiedDate | date: 'd/M/yy, hh:mm a' }}
+            <mat-icon *ngIf="isUpdatedLastWeek(category.lastModifiedDate)">star</mat-icon>
+          </div>
+        </mat-card-content>
+      </div>
+    </mat-card>
+  </div>
 </div>
