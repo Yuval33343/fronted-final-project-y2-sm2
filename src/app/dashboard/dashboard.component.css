@@ -14,7 +14,7 @@ span {
 
 
 .played-card {
-    background-color: #bee7c2; /* Change the background color of the first card */
+    background-color: #b7f3bd; /* Change the background color of the first card */
     text-align: center;
     margin-right: 50px;
 
@@ -48,5 +48,17 @@ mat-card-title{
 .numDiv{
     font-size: 20px;
     margin-top: 20px;
+
+}
+
+.totalGamesWon-card{
+    margin-right: 50px;
+    text-align: center;
+    background-color: #f2f5ab;
+}
+
+.avgPoints-card{
+    text-align: center;
+    background-color: #f5ce9a; 
 
 }

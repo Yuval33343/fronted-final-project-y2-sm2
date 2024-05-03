@@ -16,12 +16,41 @@
 
     <mat-card class="got-card">
         <div class="card-title">
-            You Got <mat-card-title> {{ MaintotalPoints }} </mat-card-title>
+            You Got <mat-card-title> {{ (MaintotalPoints / 1000) | number:'1.1-1' }}K </mat-card-title>  
+
         </div>
         <div class="card-content">
             <mat-card-content>     
                 <div class="numDiv"> 
                      Points
+                </div>
+            </mat-card-content>
+        </div>
+    </mat-card>
+</div>
+
+<div class="card-container">
+    <mat-card class="totalGamesWon-card">
+        <div class="card-title">
+            Total Games Won <mat-card-title> {{ totalGamesWon }} </mat-card-title>
+        </div>
+        <div class="card-content">
+            <mat-card-content>     
+                <div class="numDiv"> 
+                    Games
+                </div>
+            </mat-card-content>
+        </div>
+    </mat-card>
+
+    <mat-card class="avgPoints-card">
+        <div class="card-title">
+            Average Points Per Game <mat-card-title> {{ averagePointsPerGame }} </mat-card-title>
+        </div>
+        <div class="card-content">
+            <mat-card-content>     
+                <div class="numDiv"> 
+                    Points
                 </div>
             </mat-card-content>
         </div>

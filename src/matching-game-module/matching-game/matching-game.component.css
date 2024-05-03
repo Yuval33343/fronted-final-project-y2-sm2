@@ -42,3 +42,10 @@ app-points-display {
   right: 100px; 
   margin-top: 10px; 
 }
+
+.newCat-btn{
+  margin-top: 20px;
+  width: 200px;
+  height: 70px;
+  font-size: 20px;
+}

@@ -8,6 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatchingGameComponent } from '../matching-game-module/matching-game/matching-game.component';
 import { GameSummaryComponent } from './matching-game-summary/game-summary.component';
 import { MixedLettersComponent } from './mixed-letters/mixed-letters.component';
+import { WordSortingGameComponent } from './word-sorting-game/word-sorting-game.component';
 
 
 export const routes: Routes = [
@@ -21,5 +22,6 @@ export const routes: Routes = [
   { path: 'matching-game/:selectedCategoryId', component: MatchingGameComponent },
   { path: 'mixed-letters/:selectedCategoryId', component: MixedLettersComponent },
   { path: 'game-summary', component: GameSummaryComponent },
+  { path: 'sorting-game/:selectedCategoryId', component: WordSortingGameComponent },
 
 ]

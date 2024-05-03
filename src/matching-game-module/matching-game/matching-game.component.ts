@@ -75,7 +75,7 @@ export class MatchingGameComponent implements OnInit {
 
 
   shuffleInterpretations(): void {
-      this.interpretations.sort(() => Math.random() - 0.5);
+    this.interpretations.sort(() => Math.random() - 0.5);
   }
 
   initializeWordStatuses(): void {

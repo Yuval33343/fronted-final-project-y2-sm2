@@ -1,0 +1,27 @@
+<div class="summary-container">
+    <h2>Game Summary</h2>
+    <p>Total Points: {{ totalPoints }}</p>
+    <p>You answered {{ correctAnswersCount() }} out of {{ selectedWords.length }} questions correctly.</p>
+
+    <h3>Words and Their Categories</h3>
+    <table>
+        <tr *ngFor="let word of selectedWords; let i = index">
+            <td>
+                <p>Word {{ i + 1 }}: <b>{{ word.origin }}</b></p>
+            </td>
+            <td>
+                <p>Category: <b>{{ getCategoryName(word.categoryId!) }}</b></p>
+            </td>
+            <td>
+                <p>Your Guess: <b>{{ word.userChoise ? 'Yes' : 'No' }}</b></p>
+            </td>
+            <td>
+                <span *ngIf="word.belongsToCategory" class="result-icon correct">✓</span>
+                <span *ngIf="!word.belongsToCategory" class="result-icon incorrect">✗</span>
+            </td>
+        </tr>
+    </table>
+
+    <button mat-raised-button color="primary" [routerLink]="['/category-selection']">New Game</button>&nbsp;
+    <button mat-raised-button color="primary" (click)="playAgain()">Play Again</button>
+</div>
