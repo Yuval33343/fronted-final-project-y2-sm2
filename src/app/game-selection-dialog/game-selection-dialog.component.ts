@@ -33,7 +33,6 @@ export class GameSelectionDialogComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { categoryId: number, games: GameProfile[] },
-    private dialogRef: MatDialogRef<GameSelectionDialogComponent>
   ) {
     this.categoryId = data.categoryId;
     this.games = data.games;
