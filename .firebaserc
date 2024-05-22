@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "little-linguist-final-project"
-  }
+    "prod": "little-linguist-final-project"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
 }
