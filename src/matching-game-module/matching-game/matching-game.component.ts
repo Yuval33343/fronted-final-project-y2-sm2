@@ -18,13 +18,14 @@ import { PointsDisplayComponent } from "../../app/points-display/points-display.
 import { GameSummaryComponent } from "../../app/matching-game-summary/game-summary.component";
 import { GamePointsService } from '../../app/services/game-points.service';
 import { GamePlayed } from '../../app/shared/model/game-played';
+import { TimerComponent } from "../../app/timer/timer.component";
 
 @Component({
     selector: 'app-matching-game',
     standalone: true,
     templateUrl: './matching-game.component.html',
     styleUrl: './matching-game.component.css',
-    imports: [CategorySelectionComponent, CommonModule, GameExitButtonComponent, WordDisplayComponent, MatCardModule, ExitButtonDialogComponent, MatButtonModule, RouterLink, PointsDisplayComponent, GameSummaryComponent]
+    imports: [CategorySelectionComponent, CommonModule, GameExitButtonComponent, WordDisplayComponent, MatCardModule, ExitButtonDialogComponent, MatButtonModule, RouterLink, PointsDisplayComponent, GameSummaryComponent, TimerComponent]
 })
 export class MatchingGameComponent implements OnInit {
   @Input() selectedCategoryId?: string;
@@ -39,6 +40,9 @@ export class MatchingGameComponent implements OnInit {
   totalPoints: number = 0;
   roundPoints: number = 20;
   disableWords: boolean = false;
+  timeLeft: number = 0;
+  initialDuration = 6; 
+
 
 
   constructor(
@@ -46,6 +50,12 @@ export class MatchingGameComponent implements OnInit {
       private dialog: MatDialog,
       private gamePointsService: GamePointsService
   ) {}
+
+
+
+  handleTimeLeft(timeLeft: number): void {
+    this.timeLeft = timeLeft
+  }
 
   ngOnInit(): void {
             // Fetch the selected category based on categoryId
@@ -120,7 +130,7 @@ export class MatchingGameComponent implements OnInit {
         this.successes++;
         this.openSuccessDialog();
         if(this.isGameFinished()){
-          this.gamePointsService.addGamePlayed(new GamePlayed(this.category!.id, 1, new Date(), this.totalPoints ))
+          this.gamePointsService.addGamePlayed(new GamePlayed(this.category!.id, 1, new Date(), this.totalPoints,this.timeLeft,this.initialDuration-this.timeLeft))
         }
       }
   }
@@ -161,7 +171,7 @@ export class MatchingGameComponent implements OnInit {
         this.successes++;
         this.openSuccessDialog();
         if(this.isGameFinished()){
-          this.gamePointsService.addGamePlayed(new GamePlayed(this.category!.id, 1, new Date(), this.totalPoints )) 
+          this.gamePointsService.addGamePlayed(new GamePlayed(this.category!.id, 1, new Date(), this.totalPoints,this.timeLeft,this.initialDuration-this.timeLeft )) 
         }
       }
       
@@ -199,7 +209,7 @@ export class MatchingGameComponent implements OnInit {
 
 
   isGameFinished(): boolean {
-      return this.areAllWordsDisabled();
+      return this.areAllWordsDisabled() || this.timeLeft == 0 
   }
   
   

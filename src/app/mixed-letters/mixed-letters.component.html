@@ -2,6 +2,8 @@
   <h1>Mixed Letters - {{ category.categoryName }}</h1>
   <app-game-exit-button></app-game-exit-button>
   <app-points-display [points]="totalPoints"></app-points-display>
+  <app-timer *ngIf="!isGameFinished()" [duration]="initialDuration" (reportTimeLeft)="handleTimeLeft($event)"></app-timer>
+
 
   <div *ngIf="!isGameFinished()" class="word-item">
     <p>Meaning in Hebrew: <span>{{ category.words[currentWordIndex].target }}</span></p>

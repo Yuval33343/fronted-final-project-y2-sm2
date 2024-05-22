@@ -2,16 +2,17 @@
     <h1>Word Sorting Game - {{ category.categoryName }}</h1>
     <app-game-exit-button></app-game-exit-button>
     <app-points-display [points]="totalPoints"></app-points-display>
+    <app-timer *ngIf="!isGameFinished() && !message" [duration]="initialDuration" (reportTimeLeft)="handleTimeLeft($event)"></app-timer>
 
-    <div *ngIf="shouldShowWords()" class="word-container">
+    <div *ngIf="!isGameFinished() && !message && shouldShowWords()" class="word-container">
         <p>Does the word <span>"{{ selectedWords[currentQuestionIndex].origin }}"</span> belong to the category <span>"{{ category.categoryName }}"</span>?</p>
         <button class="ans-btn" mat-raised-button color="primary" (click)="checkAnswer(true)">Yes</button> &nbsp;
         <button class="ans-btn" mat-raised-button color="warn" (click)="checkAnswer(false)">No</button> <br><br><br>
         <mat-progress-bar mode="determinate" [value]="calculateProgress()"></mat-progress-bar>
     </div>
+
     <div class="divMessage" *ngIf="message">
         {{ message }} <br><br>
-    
         <button class="newCat-btn" mat-raised-button color="primary" [routerLink]="['/category-selection']">Select new category</button>
     </div>
 </div>
@@ -19,4 +20,3 @@
 <div *ngIf="isGameFinished() && !message">
     <app-word-sorting-game-summary [totalPoints]="totalPoints" [selectedWords]="selectedWords"></app-word-sorting-game-summary>
 </div>
-

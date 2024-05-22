@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Category } from '../shared/model/category';
 import { TranslatedWord } from '../shared/model/translatword';
 import { MatDialog } from '@angular/material/dialog';
@@ -15,42 +15,47 @@ import { WordSortingGameSummaryComponent } from "../word-sorting-game-summary/wo
 import { GamePlayed } from '../shared/model/game-played';
 import { MatProgressBar, MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCommonModule } from '@angular/material/core';
+import { TimerComponent } from "../timer/timer.component";
 
 @Component({
     selector: 'app-word-sorting-game',
     standalone: true,
     templateUrl: './word-sorting-game.component.html',
     styleUrl: './word-sorting-game.component.css',
-    imports: [GameExitButtonComponent, PointsDisplayComponent, NgIf, CommonModule, MatButtonModule, RouterLink, WordSortingGameSummaryComponent, MatProgressBarModule]
+    imports: [GameExitButtonComponent, PointsDisplayComponent, NgIf, CommonModule, MatButtonModule, RouterLink, WordSortingGameSummaryComponent, MatProgressBarModule, TimerComponent]
 })
 
 export class WordSortingGameComponent implements OnInit {
 
-  @Input() selectedCategoryId?: string;
-  category?: Category;
-  totalPoints: number = 0;
-  selectedWords: TranslatedWord[] = [];
-  currentQuestionIndex: number = 0;
-  message: string = '';
-
-
-  constructor(
+    @Input() selectedCategoryId?: string;
+    @Output() reportTimeLeft = new EventEmitter<number>();
+  
+    category?: Category;
+    totalPoints: number = 0;
+    selectedWords: TranslatedWord[] = [];
+    currentQuestionIndex: number = 0;
+    message: string = '';
+    timeLeft: number = 0;
+  
+    initialDuration = 10; 
+  
+    constructor(
       private categoryService: CategoryService,
       private dialog: MatDialog,
-      private gamePointsService: GamePointsService,
+      private gamePointsService: GamePointsService
     ) {}
-
-  ngOnInit(): void {
-        if (this.selectedCategoryId) {
-            this.category = this.categoryService.get(parseInt(this.selectedCategoryId));
-            if (this.category && this.category.words.length < 3) {
-                this.message = "To play this game, a category must contain at least 3 words.";
-            } else {
-                this.selectedWords = this.getSelectedWords();
-            }
-        } 
+  
+    ngOnInit(): void {
+      if (this.selectedCategoryId) {
+        this.category = this.categoryService.get(parseInt(this.selectedCategoryId));
+        if (this.category && this.category.words.length < 3) {
+          this.message = "To play this game, a category must contain at least 3 words.";
+        } else {
+          this.selectedWords = this.getSelectedWords();
+        }
+      } 
+      this.timeLeft = this.initialDuration;
     }
-
 
   
     getSelectedWords(): TranslatedWord[] {
@@ -119,13 +124,13 @@ export class WordSortingGameComponent implements OnInit {
         this.currentQuestionIndex++;
 
         if (this.isGameFinished()) {
-            this.gamePointsService.addGamePlayed(new GamePlayed(this.category!.id, 3, new Date(), this.totalPoints));
+            this.gamePointsService.addGamePlayed(new GamePlayed(this.category!.id, 3, new Date(), this.totalPoints,this.timeLeft,this.initialDuration-this.timeLeft));
         }
     }
 
 
   isGameFinished(): boolean {
-        return this.currentQuestionIndex == this.selectedWords.length;
+        return this.currentQuestionIndex == this.selectedWords.length || this.timeLeft == 0 
     }
 
 
@@ -138,6 +143,23 @@ export class WordSortingGameComponent implements OnInit {
         return ((this.currentQuestionIndex) / this.selectedWords.length) * 100;
     }
     
+    handleTimeLeft(timeLeft: number): void {
+        this.timeLeft = timeLeft;
+        this.reportTimeLeft.emit(timeLeft); // Emit the time left to the parent component
+        if (timeLeft === 0) {
+            // Display game summary screen and report to the games played service
+            if (!this.message) {
+                this.gamePointsService.addGamePlayed(new GamePlayed(
+                    this.category!.id,
+                    3,
+                    new Date(),
+                    this.totalPoints,
+                    this.timeLeft,
+                    this.initialDuration - this.timeLeft
+                ));
+                
+            }
+        }
+    }
     
-
-}
+}    

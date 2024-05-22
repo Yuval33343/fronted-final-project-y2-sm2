@@ -16,21 +16,27 @@ export class DashboardComponent implements OnInit {
   gamesPlayed: GamePlayed[] = [];
   averagePointsPerGame: number = 0;
   totalGamesWon: number = 0;
+  averageGameDuration: number = 0;
+  totalTimePlayed: number = 0;
+  gamesEndedOnTime: number = 0;
+  percentageGamesEndedOnTime: number = 0;
 
   constructor(private gamePointsService: GamePointsService) {}
 
   ngOnInit(): void {
     this.gamesPlayed = this.gamePointsService.list();
+    console.log('Games Played:', this.gamesPlayed);
+
     this.calculateTotalPoints();
     this.calculateAveragePointsPerGame();
     this.calculateTotalGamesWon();
+    this.calculateAverageGameDuration();
+    this.calculateTotalTimePlayed();
+    this.calculatePercentageGamesEndedOnTime();
   }
 
   calculateTotalPoints(): void {
-    const arrPoints = this.gamePointsService.list();
-    for (const game of arrPoints) {
-      this.MaintotalPoints += game.points;
-    }
+    this.MaintotalPoints = this.gamesPlayed.reduce((sum, game) => sum + game.points, 0);
   }
 
   calculateAveragePointsPerGame(): void {
@@ -40,5 +46,28 @@ export class DashboardComponent implements OnInit {
 
   calculateTotalGamesWon(): void {
     this.totalGamesWon = this.gamesPlayed.filter(game => game.points > 90).length;
+  }
+
+  calculateAverageGameDuration(): void {
+    if (this.gamesPlayed.length > 0) {
+      const totalDuration = this.gamesPlayed.reduce((sum, game) => sum + game.secondsPlayed, 0);
+      this.averageGameDuration = parseFloat((totalDuration / this.gamesPlayed.length).toFixed(2));
+    } else {
+      this.averageGameDuration = 0;
+    }
+  }
+
+  calculateTotalTimePlayed(): void {
+    this.totalTimePlayed = this.gamesPlayed.reduce((sum, game) => sum + (game.secondsPlayed + game.secondsLeftInGame), 0);
+  }
+  
+
+  calculatePercentageGamesEndedOnTime(): void {
+    if (this.gamesPlayed.length > 0) {
+      this.gamesEndedOnTime = this.gamesPlayed.filter(game => game.secondsLeftInGame > 0).length;
+      this.percentageGamesEndedOnTime = parseFloat(((this.gamesEndedOnTime / this.gamesPlayed.length) * 100).toFixed(2));
+    } else {
+      this.percentageGamesEndedOnTime = 0;
+    }
   }
 }
