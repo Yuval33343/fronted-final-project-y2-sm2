@@ -40,7 +40,7 @@ export class MatchingGameComponent implements OnInit {
   totalPoints: number = 0;
   roundPoints: number = 20;
   disableWords: boolean = false;
-  timeLeft: number = 0;
+  timeLeft: number = 1;
   initialDuration = 6; 
 
 

@@ -48,6 +48,10 @@ export class MixedLettersComponent implements OnInit {
     handleTimeLeft(timeLeft: number): void {
       this.timeLeft = timeLeft;
       if (timeLeft === 0) {
+        for(let i = this.currentWordIndex; i< this.category!.words.length; i++){
+          this.selectedWords.push(this.category!.words[i]);
+        }
+
         this.endGame();
       }
     }
