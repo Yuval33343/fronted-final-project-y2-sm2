@@ -29,7 +29,7 @@ export class TranslateComponent implements OnInit {
   resultMessage: string = '';
   seeResultMessage: string = '';
   translateButtonClicked: boolean = false;
-
+  isLoadingDone = false;
 
 
   constructor(private categoryService: CategoryService,){}
@@ -38,7 +38,14 @@ export class TranslateComponent implements OnInit {
     console.log(this.selectedCategoryId)
 
     if (this.selectedCategoryId ) {
-      this.category = this.categoryService.get(parseInt(this.selectedCategoryId));
+      this.categoryService.get(this.selectedCategoryId).then(
+        (categoryFromService) => {
+          if (categoryFromService) {
+            this.category = categoryFromService;
+          }
+          this.isLoadingDone = true
+        }
+      );
     }
   }
   

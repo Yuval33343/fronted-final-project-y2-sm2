@@ -21,35 +21,36 @@ import { MatIconModule } from '@angular/material/icon';
 export class CategoryFormComponent implements OnInit {
   
   
-  currentcategory: Category = new Category('', new Date(), 0);
+  currentcategory: Category = new Category('', new Date(), "");
   @Input() idString?: string;
   
   constructor(private categoryService: CategoryService, private router: Router) {}
 
   ngOnInit(): void {
     if (this.idString) {
-      let id: number = parseInt(this.idString);
-      const category = this.categoryService.get(id);
-      if (category !== undefined) {
-        this.currentcategory = category;
-        console.log("")
-        
-        
-      }
+      this.categoryService.get(this.idString).then(
+        (categoryFromService) => {
+          if (categoryFromService) {
+            this.currentcategory = categoryFromService;
+          }
+        }
+      );
     }
-
   }
-  
+
 
   onSubmitRegistration(): void {
     alert("The category has been added to the site!");
 
     if (this.idString) {
-      this.categoryService.update(this.currentcategory);
+      this.categoryService.update(this.currentcategory).then(
+        () => this.navigateToCCategoryTable()
+      );
     } else {
-      this.categoryService.add(this.currentcategory);
-    }
-    this.navigateToCCategoryTable();
+      this.categoryService.add(this.currentcategory).then(
+        () => this.navigateToCCategoryTable()
+      );
+    } 
   }
 
   addNewWord(): void {

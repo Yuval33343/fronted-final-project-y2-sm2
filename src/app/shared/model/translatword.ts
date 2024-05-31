@@ -3,7 +3,8 @@ export class TranslatedWord {
     target: string;
     hebrewTranslation: string;
     userInput: string | undefined;
-    categoryId: number | undefined;
+    categoryId: string | undefined;
+    categoryName: string | undefined;
     belongsToCategory: any;
     userChoise: boolean | undefined;
 

@@ -8,11 +8,11 @@ export class Category {
   public sourceLanguage: Language = Language.ENGLISH;
   public targetLanguage: Language = Language.HEBREW;
   public lastModifiedDate: Date;
-  public id: number;
+  public id: string;
   public categoryName: string;
   public words: TranslatedWord[] = [];
 
-  constructor(categoryName: string, lastModifiedDate: Date, id: number) {
+  constructor(categoryName: string, lastModifiedDate: Date, id: string) {
     this.categoryName = categoryName;
     this.lastModifiedDate = lastModifiedDate;
     this.id = id;

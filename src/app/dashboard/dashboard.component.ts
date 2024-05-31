@@ -3,11 +3,13 @@ import { MatCardModule } from '@angular/material/card';
 import { GamePointsService } from '../services/game-points.service';
 import { GamePlayed } from '../shared/model/game-played';
 import { CommonModule } from '@angular/common';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [MatCardModule,CommonModule],
+  imports: [MatCardModule,CommonModule,MatProgressBarModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -20,19 +22,24 @@ export class DashboardComponent implements OnInit {
   totalTimePlayed: number = 0;
   gamesEndedOnTime: number = 0;
   percentageGamesEndedOnTime: number = 0;
+  isLoadingDone = false;
 
   constructor(private gamePointsService: GamePointsService) {}
 
   ngOnInit(): void {
-    this.gamesPlayed = this.gamePointsService.list();
-    console.log('Games Played:', this.gamesPlayed);
+    this.gamePointsService.list().then((result)=>{
+      console.log('Games Played:', this.gamesPlayed);
+      this.gamesPlayed = result
+      this.calculateTotalPoints();
+      this.calculateAveragePointsPerGame();
+      this.calculateTotalGamesWon();
+      this.calculateAverageGameDuration();
+      this.calculateTotalTimePlayed();
+      this.calculatePercentageGamesEndedOnTime();
 
-    this.calculateTotalPoints();
-    this.calculateAveragePointsPerGame();
-    this.calculateTotalGamesWon();
-    this.calculateAverageGameDuration();
-    this.calculateTotalTimePlayed();
-    this.calculatePercentageGamesEndedOnTime();
+      this.isLoadingDone = true;
+    })
+    
   }
 
   calculateTotalPoints(): void {
@@ -70,4 +77,17 @@ export class DashboardComponent implements OnInit {
       this.percentageGamesEndedOnTime = 0;
     }
   }
+
+  formatTime(seconds: number): string {
+    if (seconds < 60) {
+      return `${seconds}<br>Sec`;
+    } else if (seconds < 3600) {
+      const minutes = Math.floor(seconds / 60);
+      return `${minutes}<br><br><br>Minute${minutes > 1 ? 's' : ''}`;
+    } else {
+      const hours = Math.floor(seconds / 3600);
+      return `${hours}<br>Hour${hours > 1 ? 's' : ''}`;
+    }
+  }
+
 }

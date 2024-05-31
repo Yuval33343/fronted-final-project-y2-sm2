@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GamePlayed } from '../shared/model/game-played';
+import { DocumentSnapshot, Firestore, QuerySnapshot, addDoc, collection, getDocs } from '@angular/fire/firestore';
+import { gamePlayedConverter } from './convertor/game-played-converters';
 
 @Injectable({
   providedIn: 'root'
@@ -7,24 +9,34 @@ import { GamePlayed } from '../shared/model/game-played';
 export class GamePointsService {
   private readonly storageKey = 'gamePlayed';
 
-  constructor() {}
+  constructor(private firestoreService: Firestore) {} // Add constructor to ensure service is provided correctly
 
-  private get gamesPlayedFromLocalStorage(): GamePlayed[] {
-    const storedGamesPlayed = localStorage.getItem(this.storageKey);
-    return storedGamesPlayed ? JSON.parse(storedGamesPlayed) : [];
+  
+
+  async list(): Promise<GamePlayed[]> {
+    const collectionConnection = collection(
+      this.firestoreService,
+      'gamePlayed'
+    ).withConverter(gamePlayedConverter);
+    const querySnapshot: QuerySnapshot<GamePlayed> = await getDocs(collectionConnection);
+    const result: GamePlayed[] = [];
+    querySnapshot.docs.forEach((docSnap: DocumentSnapshot<GamePlayed>) => {
+      const data = docSnap.data();
+      if (data) {
+        result.push(data);
+      }
+    });
+    return result;
   }
 
-  private set gamesPlayedToLocalStorage(gamesPlayed: GamePlayed[]) {
-    localStorage.setItem(this.storageKey, JSON.stringify(gamesPlayed));
-  }
 
-  list(): GamePlayed[] {
-    return this.gamesPlayedFromLocalStorage;
-  }
 
-  addGamePlayed(gamePlayed: GamePlayed): void {
-    const gamesPlayed = this.gamesPlayedFromLocalStorage;
-    gamesPlayed.push(gamePlayed);
-    this.gamesPlayedToLocalStorage = gamesPlayed;
+  async addGamePlayed(gamePlayed: GamePlayed): Promise<void> {
+    await addDoc(
+      collection(this.firestoreService, 'gamePlayed').withConverter(
+      gamePlayedConverter
+      ),
+      gamePlayed
+    );
   }
 }

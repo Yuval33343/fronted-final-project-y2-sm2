@@ -36,8 +36,8 @@ export class WordSortingGameComponent implements OnInit {
     currentQuestionIndex: number = 0;
     message: string = '';
     timeLeft: number = 0;
-  
-    initialDuration = 10; 
+    initialDuration = 6; 
+    isLoadingDone = false
   
     constructor(
       private categoryService: CategoryService,
@@ -45,38 +45,56 @@ export class WordSortingGameComponent implements OnInit {
       private gamePointsService: GamePointsService
     ) {}
   
-    ngOnInit(): void {
-      if (this.selectedCategoryId) {
-        this.category = this.categoryService.get(parseInt(this.selectedCategoryId));
-        if (this.category && this.category.words.length < 3) {
-          this.message = "To play this game, a category must contain at least 3 words.";
-        } else {
-          this.selectedWords = this.getSelectedWords();
-        }
-      } 
-      this.timeLeft = this.initialDuration;
-    }
+    async ngOnInit(): Promise<void> {
+        if (this.selectedCategoryId ) {
+            this.categoryService.get(this.selectedCategoryId).then(
+              (categoryFromService) => {
+                if (categoryFromService) {
+                  this.category = categoryFromService;
+                }
+                if (this.category && this.category.words.length < 3) {
+                  this.message = "To play this game, a category must contain at least 3 words.";
+                  this.isLoadingDone = true
+                } else {
+                  this.getSelectedWords().then((result: TranslatedWord[])=>{
+                    this.selectedWords = result
+                    this.isLoadingDone = true
+                  }); 
+                }
+              }
+            );
+          }
+        this.timeLeft = this.initialDuration;
+      }
 
   
-    getSelectedWords(): TranslatedWord[] {
+    async getSelectedWords(): Promise<TranslatedWord[]> {
         let selectedWords: TranslatedWord[] = [];
         if (this.category) {
-            selectedWords.push(...this.getRandomWordsFromCategory(this.category, 3).map(word => {
-                word.categoryId = this.category!.id; 
-                return word;
-            }));
-            // Get 3 words from another random category
-            const otherCategory = this.getRandomOtherCategory();
-            selectedWords.push(...this.getRandomWordsFromCategory(otherCategory, 3).map(word => {
-                word.categoryId = otherCategory.id; // Assign categoryId here
-                return word;
-            }));
-            // Shuffle the words
-            selectedWords = this.shuffleArray(selectedWords);
+          selectedWords.push(
+            ...this.getRandomWordsFromCategory(this.category, 3).map(word => {
+              word.categoryId = this.category!.id;
+              word.categoryName = this.category?.categoryName
+              return word;
+            })
+          );
+      
+          // Get 3 words from another random category
+          const otherCategory = await this.getRandomOtherCategory(); // Use await here
+          selectedWords.push(
+            ...this.getRandomWordsFromCategory(otherCategory, 3).map(word => {
+              word.categoryId = otherCategory.id; // Assign categoryId here
+              word.categoryName = otherCategory.categoryName
+              return word;
+            })
+          );
+      
+          // Shuffle the words
+          selectedWords = this.shuffleArray(selectedWords);
         }
         return selectedWords;
     }
-    
+      
 
   getRandomWordsFromCategory(category: Category, count: number): TranslatedWord[] {
       const words = category.words;
@@ -84,11 +102,12 @@ export class WordSortingGameComponent implements OnInit {
       return shuffledWords.slice(0, count);
     }
 
-  getRandomOtherCategory(): Category {
-      const categories = this.categoryService.list().filter(cat => cat.id !== this.category!.id);
-      const randomIndex = Math.floor(Math.random() * categories.length);
-      return categories[randomIndex];
-    }
+    async getRandomOtherCategory(): Promise<Category> {
+        const categories = await this.categoryService.list();
+        const filteredCategories = categories.filter((cat: Category) => cat.id !== this.category!.id);
+        const randomIndex = Math.floor(Math.random() * filteredCategories.length);
+        return filteredCategories[randomIndex];
+      }
 
   shuffleArray(array: any[]): any[] {
       for (let i = array.length - 1; i > 0; i--) {

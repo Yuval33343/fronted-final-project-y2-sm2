@@ -35,9 +35,9 @@ export class MixedLettersComponent implements OnInit {
     shuffleWord: string = "";
     selectedWords: TranslatedWord[] = [];
     timeLeft: number = 0;
-    
-    initialDuration = 5; // Initial duration in seconds
+    initialDuration = 180; // Initial duration in seconds
     gameFinished: boolean = false;
+    isLoadedDone = false;
   
     constructor(
       private categoryService: CategoryService,
@@ -57,9 +57,16 @@ export class MixedLettersComponent implements OnInit {
     }
   
     ngOnInit(): void {
-      if (this.selectedCategoryId) {
-        this.category = this.categoryService.get(parseInt(this.selectedCategoryId));
-        this.shuffleWord = this.shuffleWorddd(this.category?.words[0].origin!.toLowerCase()!);
+      if (this.selectedCategoryId ) {
+        this.categoryService.get(this.selectedCategoryId).then(
+          (categoryFromService) => {
+            if (categoryFromService) {
+              this.category = categoryFromService;
+              this.shuffleWord = this.shuffleWorddd(this.category?.words[0].origin!.toLowerCase()!);
+              this.isLoadedDone = true;
+            }
+          }
+        );
       }
       this.timeLeft = this.initialDuration;
     }

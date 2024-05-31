@@ -37,7 +37,7 @@ span{
     padding: 10px;
 }
 
-mat-progress-bar {
+.main-progress-bar {
     width: 50%;
     margin-left: 380px;
     border-radius: 8px; 

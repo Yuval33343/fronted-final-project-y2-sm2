@@ -1,85 +1,84 @@
 import { Injectable } from '@angular/core';
 import { Category } from '../shared/model/category';
+import { DocumentReference, DocumentSnapshot, Firestore, QuerySnapshot, Timestamp, addDoc, collection, deleteDoc, doc, getDoc, getDocs, setDoc } from '@angular/fire/firestore';
+import { categoryConverter } from './convertor/category-converters';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CategoryService {
-  private selectedCategory?: Category;
-  private readonly storageKey = 'categories';
-
-  constructor() {} // Add constructor to ensure service is provided correctly
-
-
-  private get categoriesFromLocalStorage(): Map<number, Category> {
-    const storedCategories = localStorage.getItem(this.storageKey);
-    return storedCategories ? new Map<number, Category>(JSON.parse(storedCategories)) : new Map<number, Category>();
-  }
-
-  private set categoriesToLocalStorage(categories: Map<number, Category>) {
-    localStorage.setItem(this.storageKey, JSON.stringify(Array.from(categories.entries())));
-  }
-
-  private get nextCategoryId(): number {
-    const nextId = localStorage.getItem('nextCategoryId');
-    return nextId ? +nextId : 1;
-  }
-
-  private set nextCategoryId(nextId: number) {
-    localStorage.setItem('nextCategoryId', nextId.toString());
-  }
-
-  add(category: Category): void {
-    category.id = this.nextCategoryId;
-    category.lastModifiedDate = new Date();
-    const categories = this.categoriesFromLocalStorage;
-    categories.set(category.id, category);
-    this.categoriesToLocalStorage = categories;
-    this.nextCategoryId++;
-  }
-
-  delete(categoryId: number): void {
-    const categories = this.categoriesFromLocalStorage;
-    if (!categories.has(categoryId)) {
-      throw new Error(`Category with ID ${categoryId} does not exist.`);
-    }
-    categories.delete(categoryId);
-    this.categoriesToLocalStorage = categories;
-  }
-
-  update(category: Category): void {
-    const categories = this.categoriesFromLocalStorage;
-    if (!categories.has(category.id)) {
-      throw new Error(`Category with ID ${category.id} does not exist.`);
-    }
-    category.lastModifiedDate = new Date();
-    categories.set(category.id, category);
-    this.categoriesToLocalStorage = categories;
-  }
-
-  list(): Category[] {
-    return Array.from(this.categoriesFromLocalStorage.values());
-  }
-
-
-
-  get(categoryId: number): Category | undefined {
-    const category = this.categoriesFromLocalStorage.get(categoryId);
-    console.log('Retrieved category:', category);
-    if (!category) {
-      throw new Error(`Category with ID ${categoryId} does not exist.`);
-    }
-    return category;
-  }
-
   
-  setSelectedCategory(category: Category): void {
-    console.log("Setting selected category:", category);
-    this.selectedCategory = category;
+
+  constructor(private firestoreService: Firestore) {} // Add constructor to ensure service is provided correctly
+
+
+  async add(category: Category): Promise<void> {
+    category.lastModifiedDate = new Date()
+    await addDoc(
+      collection(this.firestoreService, 'category').withConverter(
+      categoryConverter
+      ),
+    category
+    );
   }
 
-  getSelectedCategory(): Category | undefined {
-    return this.selectedCategory;
+
+  async list(): Promise<Category[]> {
+    const collectionConnection = collection(
+      this.firestoreService,
+      'category'
+    ).withConverter(categoryConverter);
+    const querySnapshot: QuerySnapshot<Category> = await getDocs(collectionConnection);
+    const result: Category[] = [];
+    querySnapshot.docs.forEach((docSnap: DocumentSnapshot<Category>) => {
+      const data = docSnap.data();
+      if (data) {
+        result.push(data);
+      }
+    });
+    return result;
   }
+
+
+  async get(categoryId: string): Promise<Category | undefined> {
+    const categoryDocRef = doc(
+      this.firestoreService,
+       'category',
+       categoryId
+      ).withConverter(
+          categoryConverter
+        );
+    return (await getDoc(categoryDocRef)).data();  
+  }
+
+ 
+
+    
+
+  async delete(categoryId: string): Promise<void>  {
+    const personDocRef = doc(
+      this.firestoreService,
+      'category',
+      categoryId
+    ).withConverter(categoryConverter);
+  return await deleteDoc(personDocRef);
+  }
+
+  async update(category: Category): Promise<void> {
+    category.lastModifiedDate = new Date()
+      const personDocRef = doc(
+        this.firestoreService,
+        'category',
+        category.id
+      ).withConverter(categoryConverter);
+    return await setDoc(personDocRef, category);
+  }
+
+
+
 
 }
+function deletDoc(personDocRef: DocumentReference<Category, { categoryName: string; words: { origin: string; target: string; }[]; lastModifiedDate: Timestamp; }>, category: any): void | PromiseLike<void> {
+  throw new Error('Function not implemented.');
+}
+

@@ -1,98 +1,94 @@
-<h1><span>You Are Learning</span></h1>
+<h1><span>You Are Learning!</span></h1>
 
-<div class="card-container">
-  <mat-card class="played-card">
-    <div class="card-title">
-      You Played <mat-card-title> {{ gamesPlayed.length }} </mat-card-title>
-    </div>
-    <div class="card-content">
-      <mat-card-content>     
-        <div class="numDiv"> 
-          Games
-        </div>
-      </mat-card-content>
-    </div>
-  </mat-card>
-
-  <mat-card class="got-card">
-    <div class="card-title">
-      You Got <mat-card-title> {{ (MaintotalPoints / 1000) | number:'1.1-1' }}K </mat-card-title>  
-    </div>
-    <div class="card-content">
-      <mat-card-content>     
-        <div class="numDiv"> 
-          Points
-        </div>
-      </mat-card-content>
-    </div>
-  </mat-card>
+<div *ngIf="!isLoadingDone">
+  <mat-progress-bar mode="query"></mat-progress-bar>
 </div>
 
-<div class="card-container">
-  <mat-card class="totalGamesWon-card">
-    <div class="card-title">
-      Total Games Won <mat-card-title> {{ totalGamesWon }} </mat-card-title>
-    </div>
-    <div class="card-content">
-      <mat-card-content>     
-        <div class="numDiv"> 
-          Games
-        </div>
-      </mat-card-content>
-    </div>
-  </mat-card>
-
-  <mat-card class="avgPoints-card">
-    <div class="card-title">
-      Average Points Per Game <mat-card-title> {{ averagePointsPerGame }} </mat-card-title>
-    </div>
-    <div class="card-content">
-      <mat-card-content>     
-        <div class="numDiv"> 
-          Points
-        </div>
-      </mat-card-content>
-    </div>
-  </mat-card>
-</div>
-
-<div class="card-container">
-  <mat-card class="averageDuration-card">
-    <div class="card-title">
-      Average Game Duration <mat-card-title> {{ averageGameDuration }} seconds </mat-card-title>
-    </div>
-    <div class="card-content">
-      <mat-card-content>     
-        <div class="numDiv"> 
-          Seconds
-        </div>
-      </mat-card-content>
-    </div>
-  </mat-card>
-
+<div *ngIf="isLoadingDone">
   <mat-card class="totalTimePlayed-card">
     <div class="card-title">
-      Total Time Played <mat-card-title> {{ totalTimePlayed }} seconds </mat-card-title>
-    </div>
-    <div class="card-content">
-      <mat-card-content>     
-        <div class="numDiv"> 
-          Seconds
-        </div>
-      </mat-card-content>
+      Total Time Played <mat-card-title [innerHTML]="formatTime(totalTimePlayed)"></mat-card-title>
     </div>
   </mat-card>
 
-  <mat-card class="percentageGamesEndedOnTime-card">
-    <div class="card-title">
-      Percentage of Games Ended on Time <mat-card-title> {{ percentageGamesEndedOnTime }} % </mat-card-title>
-    </div>
-    <div class="card-content">
-      <mat-card-content>     
-        <div class="numDiv"> 
-          Percentage
-        </div>
-      </mat-card-content>
-    </div>
-  </mat-card>
+  <div class="card-container">
+    <mat-card class="played-card">
+      <div class="card-title">
+        You Played <mat-card-title> {{ gamesPlayed.length }} </mat-card-title>
+      </div>
+      <div class="card-content">
+        <mat-card-content>     
+          <div class="numDiv"> 
+            Games
+          </div>
+        </mat-card-content>
+      </div>
+    </mat-card>
+
+    <mat-card class="got-card">
+      <div class="card-title">
+        You Got <mat-card-title> {{ (MaintotalPoints / 1000) | number:'1.1-1' }}K </mat-card-title>  
+      </div>
+      <div class="card-content">
+        <mat-card-content>     
+          <div class="numDiv"> 
+            Points
+          </div>
+        </mat-card-content>
+      </div>
+    </mat-card>
+
+    <mat-card class="totalGamesWon-card">
+      <div class="card-title">
+        Total Games Won <mat-card-title> {{ totalGamesWon }} </mat-card-title>
+      </div>
+      <div class="card-content">
+        <mat-card-content>     
+          <div class="numDiv"> 
+            Games
+          </div>
+        </mat-card-content>
+      </div>
+    </mat-card>
+
+    <mat-card class="avgPoints-card">
+      <div class="card-title">
+        Average Points Per Game <mat-card-title> {{ averagePointsPerGame }} </mat-card-title>
+      </div>
+      <div class="card-content">
+        <mat-card-content>     
+          <div class="numDiv"> 
+            Points
+          </div>
+        </mat-card-content>
+      </div>
+    </mat-card>
+    
+    <mat-card class="averageDuration-card">
+      <div class="card-title">
+        Average Game Duration <mat-card-title> {{ averageGameDuration }}  </mat-card-title>
+      </div>
+      <div class="card-content">
+        <mat-card-content>     
+          <div class="numDiv"> 
+            Seconds
+          </div>
+        </mat-card-content>
+      </div>
+    </mat-card>
+
+    <mat-card class="percentageGamesEndedOnTime-card">
+      <div class="card-title">
+        Games Finished On Time <mat-card-title> {{ percentageGamesEndedOnTime }} % </mat-card-title>
+      </div>
+      <div class="card-content">
+        <mat-card-content>     
+          <div class="numDiv"> 
+            Percentage
+          </div>
+        </mat-card-content>
+      </div>
+    </mat-card>
+  </div>
 </div>
+

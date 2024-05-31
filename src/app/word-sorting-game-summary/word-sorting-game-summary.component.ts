@@ -17,16 +17,22 @@ import { Category } from '../shared/model/category';
 export class WordSortingGameSummaryComponent implements OnInit {
     @Input() totalPoints: number = 0;
     @Input() selectedWords: TranslatedWord[] = [];
+    @Input() currentQuestionIndex: number = 0;
     category?: Category;
-belongsToCategory: boolean | undefined;
+    belongsToCategory: boolean | undefined;
 
   
     constructor(private categoryService: CategoryService) {}
   
-    ngOnInit(): void {}
+    ngOnInit(): void {
+    }
   
     playAgain(): void {
+      this.totalPoints = 0 
+      this.selectedWords = []
+      this.currentQuestionIndex = 0;
       window.location.reload();
+
     }
   
     correctAnswersCount(): number {
@@ -39,8 +45,10 @@ belongsToCategory: boolean | undefined;
       return correctCount;
     }
   
-    getCategoryName(categoryId: number): string {
-      const category = this.categoryService.get(categoryId);
-      return category ? category.categoryName : '';
+    getCategoryName(categoryId: string): Promise<string> {
+      return this.categoryService.get(categoryId).then(category => {
+        return category ? category.categoryName : '';
+      });
     }
+    
 }

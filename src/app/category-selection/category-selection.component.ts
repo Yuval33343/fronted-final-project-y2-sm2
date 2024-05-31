@@ -14,20 +14,22 @@ import { GameService } from '../services/game.service';
 import { PointsDisplayComponent } from "../points-display/points-display.component";
 import { MatIconModule } from '@angular/material/icon';
 import { GamePointsService } from '../services/game-points.service';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
     selector: 'app-category-selection',
     templateUrl: './category-selection.component.html',
     styleUrls: ['./category-selection.component.css'],
     standalone: true,
-    imports: [ MatIconModule, MatInputModule, MatButtonModule, RouterLink, MatSelectModule, CommonModule, MatCardModule, PointsDisplayComponent]
+    imports: [ MatIconModule, MatInputModule, MatButtonModule, RouterLink, MatSelectModule, CommonModule, MatCardModule, PointsDisplayComponent, MatProgressBarModule]
 })
 export class CategorySelectionComponent implements OnInit {
   @Input() category?: Category;
   categories: Category[] = [];
   games: GameProfile[] = [];
   MaintotalPoints: number = 0; // Declare totalPoints property
-  
+  isLoadingDone = false;
+
 
 
   constructor(
@@ -43,13 +45,20 @@ export class CategorySelectionComponent implements OnInit {
   }
 
   loadCategories(): void {
-      this.categories = this.categoryService.list();
+      this.categoryService.list().then((result: Category[]) => {
+        this.categories = result
+        this.isLoadingDone = true
+      })
       this.games = this.gameService.list(); // Fetch games from GameService
-      const arrPoints = this.gamePointsService.list();
+      this.gamePointsService.list().then((
+        arrPoints
+      )=>{
+          for (const i of arrPoints) {
+            this.MaintotalPoints += i.points;
+        }
+      })
 
-      for (const i of arrPoints) {
-          this.MaintotalPoints += i.points;
-      }
+      
 
       // Sort categories by last updated date
       this.categories.sort((a, b) => {
@@ -61,7 +70,7 @@ export class CategorySelectionComponent implements OnInit {
   //   this.router.navigate(['/translate', categoryId]);
   // }  
 
-  openGameSelectionDialog(categoryId: number): void {
+  openGameSelectionDialog(categoryId: string): void {
     const dialogRef = this.dialog.open(GameSelectionDialogComponent, {
       data: { categoryId, games: this.games } // Pass categoryId along with games
     });

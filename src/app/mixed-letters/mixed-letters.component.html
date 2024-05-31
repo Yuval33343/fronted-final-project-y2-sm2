@@ -1,23 +1,30 @@
-<div *ngIf="category">
-  <h1>Mixed Letters - {{ category.categoryName }}</h1>
-  <app-game-exit-button></app-game-exit-button>
-  <app-points-display [points]="totalPoints"></app-points-display>
-  <app-timer *ngIf="!isGameFinished()" [duration]="initialDuration" (reportTimeLeft)="handleTimeLeft($event)"></app-timer>
-
-
-  <div *ngIf="!isGameFinished()" class="word-item">
-    <p>Meaning in Hebrew: <span>{{ category.words[currentWordIndex].target }}</span></p>
-    <p>Mixed English Letters: <span>{{ shuffleWord }}</span></p><br>
-    Guess: <mat-form-field class="translation-field">
-        <input matInput type="text" [(ngModel)]="category.words[currentWordIndex].userInput" placeholder="Enter correct English word" ngModel pattern="[a-zA-Z ]*" #inputField="ngModel">
-        <mat-error *ngIf="inputField.invalid">Only English letters must be entered</mat-error>
-    </mat-form-field><br><br> 
-    <button mat-raised-button color="primary" (click)="checkWord(category.words[currentWordIndex])" [disabled]="inputField.invalid">Submit</button>&nbsp;
-    <button mat-raised-button color="warn" (click)="resetInput()">Reset</button><br><br><br> 
-    <mat-progress-bar mode="determinate" [value]="calculateProgress()"></mat-progress-bar>
-  </div>
+<div *ngIf="!isLoadedDone">
+  <br>
+  <mat-progress-bar mode="query"></mat-progress-bar>
 </div>
-<div *ngIf="isGameFinished()"><app-mixed-letters-summary [totalPoints]="totalPoints"
-                                                         [selectedWords]="selectedWords">
-                              </app-mixed-letters-summary>
+
+<div *ngIf="isLoadedDone">
+  <div *ngIf="category">
+    <h1>Mixed Letters - {{ category.categoryName }}</h1>
+    <app-game-exit-button></app-game-exit-button>
+    <app-points-display [points]="totalPoints"></app-points-display>
+    <app-timer *ngIf="!isGameFinished()" [duration]="initialDuration" (reportTimeLeft)="handleTimeLeft($event)"></app-timer>
+
+
+    <div *ngIf="!isGameFinished()" class="word-item">
+      <p>Meaning in Hebrew: <span>{{ category.words[currentWordIndex].target }}</span></p>
+      <p>Mixed English Letters: <span>{{ shuffleWord }}</span></p><br>
+      Guess: <mat-form-field class="translation-field">
+          <input matInput type="text" [(ngModel)]="category.words[currentWordIndex].userInput" placeholder="Enter correct English word" ngModel pattern="[a-zA-Z ]*" #inputField="ngModel">
+          <mat-error *ngIf="inputField.invalid">Only English letters must be entered</mat-error>
+      </mat-form-field><br><br> 
+      <button mat-raised-button color="primary" (click)="checkWord(category.words[currentWordIndex])" [disabled]="inputField.invalid">Submit</button>&nbsp;
+      <button mat-raised-button color="warn" (click)="resetInput()">Reset</button><br><br><br> 
+      <mat-progress-bar class="main-progress-bar" mode="determinate" [value]="calculateProgress()"></mat-progress-bar>
+    </div>
+  </div>
+  <div *ngIf="isGameFinished()"><app-mixed-letters-summary [totalPoints]="totalPoints"
+                                                          [selectedWords]="selectedWords">
+                                </app-mixed-letters-summary>
+  </div>
 </div>

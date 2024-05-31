@@ -9,26 +9,28 @@ span {
 .card-container {
     display: flex;
     justify-content: center;
-    margin-top: 40px; /* Adjust the margin as needed */
+    margin-top: 40px; 
 }
 
 
 .played-card {
-    background-color: #b7f3bd; /* Change the background color of the first card */
+    background-color: #f2f5ab; 
     text-align: center;
-    margin-right: 50px;
 
 }
 
 .got-card {
-    background-color: #81d4fa; /* Change the background color of the second card */
+    background-color: #81d4fa; 
     text-align: center;
 }
-
+ 
 mat-card {
     border-radius: 40px; 
     width: 300px;
     height: 200px;
+    color: #490069;
+    font-weight: bold;
+    text-align: center;
 }
 
 .card-title{
@@ -39,7 +41,7 @@ mat-card {
 }
 
 mat-card-title{
-    font-size: 90px;
+    font-size: 80px;
     margin-top: 35px;
     color: #ffffff;
     text-shadow: 1px 1px 2px black, 0 0 25px rgb(140, 0, 255), 0 0 5px rgb(191, 0, 255);
@@ -52,9 +54,8 @@ mat-card-title{
 }
 
 .totalGamesWon-card{
-    margin-right: 50px;
     text-align: center;
-    background-color: #f2f5ab;
+    background-color: #b7f3bd;
 }
 
 .avgPoints-card{
@@ -62,3 +63,27 @@ mat-card-title{
     background-color: #f5ce9a; 
 
 }
+
+.totalTimePlayed-card{
+    margin-left: 570px;
+    height: 270px;
+    width: 380px;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(3, 400px); /* Create 3 columns */
+    grid-gap: 20px;
+    justify-content: center;
+    margin-top: 40px;
+    margin-left: 100px;
+}
+
+.percentageGamesEndedOnTime-card{
+    background-color: #ffc4e1;
+}
+  
+.averageDuration-card{
+    background-color: #ff8080;
+}
+
