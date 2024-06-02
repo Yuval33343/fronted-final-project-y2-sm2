@@ -32,7 +32,6 @@ export class WordSortingGameSummaryComponent implements OnInit {
       this.selectedWords = []
       this.currentQuestionIndex = 0;
       window.location.reload();
-
     }
   
     correctAnswersCount(): number {
