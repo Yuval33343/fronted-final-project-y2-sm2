@@ -36,7 +36,7 @@ export class WordSortingGameComponent implements OnInit {
     currentQuestionIndex: number = 0;
     message: string = '';
     timeLeft: number = 0;
-    initialDuration = 6; 
+    initialDuration = 60; 
     isLoadingDone = false
   
     constructor(
